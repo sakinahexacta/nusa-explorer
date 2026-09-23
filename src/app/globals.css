@@ -1,26 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-pixel: "Press Start 2P", monospace;
+    --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    --font-fredoka: "Fredoka", "Poppins", cursive, sans-serif;
+    --font-poppins: "Poppins", "Fredoka", sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #1e1b4b;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.font-pixel {
+  font-family: var(--font-pixel), "Press Start 2P", monospace !important;
+}
+
+.font-fredoka {
+  font-family: var(--font-fredoka), "Fredoka", "Poppins", cursive, sans-serif !important;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), "Poppins", "Fredoka", sans-serif !important;
+}
+
+/* Pixel text styling matching retro 8-bit aesthetic */
+.pixel-text-shadow {
+  text-shadow: 
+    3px 3px 0px #000000,
+    -1px -1px 0px #000000,
+    1px -1px 0px #000000,
+    -1px 1px 0px #000000,
+    0px 4px 0px #1e0b36;
+}
+
+.pixel-text-shadow-sm {
+  text-shadow: 
+    2px 2px 0px #000000,
+    -1px -1px 0px #000000,
+    1px -1px 0px #000000,
+    -1px 1px 0px #000000;
+}
+
+.pixel-art-crisp {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Custom glowing effects */
+.purple-card-glow {
+  box-shadow: 0 10px 25px -5px rgba(88, 28, 135, 0.4), 0 8px 10px -6px rgba(88, 28, 135, 0.3);
+}
+
+.blue-btn-glow {
+  box-shadow: 0 10px 20px -3px rgba(37, 99, 235, 0.45);
+}
+
+/* Pure slide up animation with solid opacity (no fade) */
+@keyframes slideUpSolid {
+  0% {
+    transform: translateY(24px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up-solid {
+  animation: slideUpSolid 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
