@@ -10,27 +10,27 @@ interface FooterProps {
 export default function Footer({ className = "", transparent = false }: FooterProps) {
   return (
     <footer
-      className={`relative z-20 text-white pt-10 sm:pt-16 pb-8 sm:pb-10 ${
+      className={`relative z-20 text-white pt-8 sm:pt-14 pb-6 sm:pb-10 ${
         transparent
           ? "bg-transparent border-t-0"
           : "bg-[#190C38] border-t border-purple-950/60"
       } ${className}`}
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-6 md:px-8">
-        {/* ================= MOBILE VIEW (1 Kolom Bertumpuk Rata Tengah) ================= */}
-        <div className="md:hidden flex flex-col items-center text-center space-y-4">
-          {/* Logo */}
+        {/* ================= MOBILE VIEW (Rapat & 1 Kolom Rata Tengah) ================= */}
+        <div className="md:hidden flex flex-col items-center justify-center text-center space-y-3.5">
+          {/* 1. Logo Nusa Explorer */}
           <Link href="/" className="inline-block transition-transform hover:scale-105">
             <NusaLogo size="lg" />
           </Link>
 
-          {/* Deskripsi Singkat */}
-          <p className="text-purple-200/80 text-xs leading-relaxed max-w-xs">
+          {/* 2. Deskripsi */}
+          <p className="text-purple-200/80 text-xs leading-relaxed max-w-xs text-center">
             Dengan Nusa Explorer, belajar jadi lebih mudah, seru, dan menyenangkan!
           </p>
 
-          {/* Menu Navigasi Sederhana */}
-          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-bold text-white/90 pt-1 pb-1">
+          {/* 3. Navigasi Tautan Rata Tengah */}
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-bold text-white/90 pt-0.5">
             <Link href="/" className="hover:text-purple-300 transition-colors">
               Beranda
             </Link>
@@ -42,9 +42,15 @@ export default function Footer({ className = "", transparent = false }: FooterPr
             </Link>
           </nav>
 
-          {/* Hak Cipta Rata Tengah */}
-          <div className="w-full border-t border-purple-900/40 pt-4 mt-2">
-            <p className="text-xs text-purple-300/60 font-medium">
+          {/* 4. Garis Pemisah Horizontal */}
+          <div className="w-full border-t border-purple-900/40 my-1" />
+
+          {/* 5. Icon Bulat N & Hak Cipta Bertingkat Vertikal 1 Kolom */}
+          <div className="flex flex-col items-center gap-2 text-center">
+            <div className="w-6 h-6 rounded-full bg-[#3B1578] border border-purple-400/50 flex items-center justify-center text-white font-pixel font-black text-[10px] shadow-sm select-none">
+              N
+            </div>
+            <p className="text-[11px] text-purple-300/70 font-medium">
               © 2026 Nusa Explorer. All rights reserved.
             </p>
           </div>
@@ -52,13 +58,13 @@ export default function Footer({ className = "", transparent = false }: FooterPr
 
         {/* ================= DESKTOP VIEW (Multi-column Layout) ================= */}
         <div className="hidden md:block">
-          <div className="flex flex-row items-start justify-between gap-12 pb-12 text-left">
+          <div className="flex flex-row items-start justify-between gap-12 pb-10 text-left">
             {/* Left Column: Brand & Tagline */}
             <div className="flex flex-col items-start max-w-sm">
               <Link href="/" className="inline-block transition-transform hover:scale-105">
                 <NusaLogo size="lg" />
               </Link>
-              <p className="mt-5 text-purple-200/80 text-sm leading-relaxed font-normal max-w-sm">
+              <p className="mt-4 text-purple-200/80 text-sm leading-relaxed font-normal max-w-sm">
                 Dengan Nusa Explorer, belajar jadi lebih mudah, seru, dan menyenangkan!
               </p>
             </div>
@@ -66,7 +72,7 @@ export default function Footer({ className = "", transparent = false }: FooterPr
             {/* Right Columns: Links Grid */}
             <div className="grid grid-cols-3 gap-12 md:gap-16 text-left">
               {/* Column 1 */}
-              <div className="flex flex-col space-y-3.5">
+              <div className="flex flex-col space-y-3">
                 <Link
                   href="/"
                   className="font-bold text-white hover:text-purple-300 text-sm transition-colors"
@@ -82,7 +88,7 @@ export default function Footer({ className = "", transparent = false }: FooterPr
               </div>
 
               {/* Column 2 */}
-              <div className="flex flex-col space-y-3.5">
+              <div className="flex flex-col space-y-3">
                 <Link
                   href="/materi"
                   className="font-bold text-white hover:text-purple-300 text-sm transition-colors"
@@ -110,7 +116,7 @@ export default function Footer({ className = "", transparent = false }: FooterPr
               </div>
 
               {/* Column 3 */}
-              <div className="flex flex-col space-y-3.5">
+              <div className="flex flex-col space-y-3">
                 <Link
                   href="/panduan"
                   className="font-bold text-white hover:text-purple-300 text-sm transition-colors"
@@ -140,13 +146,19 @@ export default function Footer({ className = "", transparent = false }: FooterPr
           </div>
 
           {/* Bottom Divider & Copyright Desktop */}
-          <div className="border-t border-purple-900/40 pt-8 flex items-center justify-between text-xs text-purple-300/60 font-medium">
-            <p>© 2026 Nusa Explorer. All rights reserved.</p>
+          <div className="border-t border-purple-900/40 pt-6 flex items-center justify-between text-xs text-purple-300/60 font-medium">
+            <div className="flex items-center gap-2.5">
+              <div className="w-5 h-5 rounded-full bg-[#3B1578] border border-purple-400/50 flex items-center justify-center text-white font-pixel font-black text-[9px] shadow-sm select-none">
+                N
+              </div>
+              <span>© 2026 Nusa Explorer. All rights reserved.</span>
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
 
 
