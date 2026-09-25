@@ -50,20 +50,20 @@ export default function MateriPage() {
       <div className="relative z-20 w-full overflow-visible">
         {/* Floating Pixel Art Assets (z-30 agar tampil di atas background ungu & wave di mobile & desktop) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-30">
-          {/* Icon BINTANG (Kiri Atas): Masuk mendekati judul, tidak menumpuk di atas logo */}
+          {/* Icon BINTANG (Kiri Atas): Diturunkan di bawah logo Nusa Explorer dan agak ke tengah */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang Atas"
-            className="absolute block top-[4%] left-[12%] md:top-20 lg:top-24 md:left-36 lg:left-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute block top-[18%] left-[10%] md:top-20 lg:top-24 md:left-36 lg:left-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
 
-          {/* Icon PENSIL (Kanan Atas): Di kanan atas, tidak menumpuk di tombol hamburger */}
+          {/* Icon PENSIL (Kanan Atas): Diturunkan di bawah tombol hamburger menu */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/pensil.png"
             alt="Pixel Pensil Atas"
-            className="absolute block top-[6%] right-[10%] md:top-20 lg:top-24 md:right-36 lg:right-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+            className="absolute block top-[22%] right-[8%] md:top-20 lg:top-24 md:right-36 lg:right-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
           />
 
           {/* Icon BUMI (Kiri Tengah): Di pinggir kiri area ungu */}
@@ -71,7 +71,7 @@ export default function MateriPage() {
           <img
             src="/images/bumi.png"
             alt="Pixel Bumi Kiri"
-            className="absolute block top-[30%] left-[4%] md:top-[42%] md:left-8 lg:left-12 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+            className="absolute block top-[38%] left-[4%] md:top-[42%] md:left-8 lg:left-12 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
           />
 
           {/* Icon BUKU (Kiri Bawah): Di pinggir kiri area bawah */}
@@ -100,9 +100,9 @@ export default function MateriPage() {
         </div>
 
         {/* Bagian Header Ungu Atas (In-flow di mobile dengan bg-[#2e0e52], absolute di desktop) */}
-        <div className="relative md:absolute md:inset-0 z-20 w-full bg-[#2e0e52] md:bg-transparent pt-20 sm:pt-24 md:pt-36 pb-2 md:pb-0 px-4 sm:px-6 flex flex-col items-center pointer-events-none">
-          {/* Konten Hero: Title & Subtitle - Rata Tengah (text-center) di area ungu atas */}
-          <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto">
+        <div className="relative md:absolute md:inset-0 z-20 w-full bg-[#2e0e52] md:bg-transparent pt-28 sm:pt-32 md:pt-36 pb-3 md:pb-0 px-4 sm:px-6 flex flex-col items-center pointer-events-none">
+          {/* Konten Hero: Title & Subtitle - Rata Tengah (text-center) dengan ruang nafas lega di bawah navbar */}
+          <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto mt-2 sm:mt-4 md:mt-0">
             {/* Title: MATERI (Kapital, pixel text, text-center) */}
             <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-2 sm:mt-4 md:mt-6 pt-1 sm:pt-2 md:pt-8 mb-1.5 sm:mb-2 md:mb-6 uppercase">
               MATERI
@@ -115,6 +115,7 @@ export default function MateriPage() {
             </p>
           </div>
         </div>
+
 
         {/* Rendering Wave Image: Menyatu mulus dengan area ungu header */}
         <div className="w-full relative z-0 -mt-8 sm:-mt-10 md:-mt-10 bg-transparent">
