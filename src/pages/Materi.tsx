@@ -56,21 +56,21 @@ export default function MateriPage() {
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang"
-            className="absolute top-[68px] sm:top-20 md:top-20 lg:top-24 left-3.5 sm:left-6 md:left-[26%] lg:left-[33%] w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute top-[64px] sm:top-20 md:top-20 lg:top-24 left-3.5 sm:left-6 md:left-[26%] lg:left-[33%] w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
-          {/* Aset Tengah Kiri: Bumi */}
+          {/* Aset Tengah Kiri: Bumi (Tingkat tengah mengapit teks) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bumi.png"
             alt="Pixel Bumi"
-            className="absolute top-[36%] sm:top-[38%] md:top-[42%] left-3 sm:left-5 md:left-6 lg:left-10 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+            className="absolute top-[115px] sm:top-[130px] md:top-[42%] left-3 sm:left-5 md:left-6 lg:left-10 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
           />
           {/* Aset Bawah Kiri: Buku (Disebarkan mendekati wave di mobile) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/aset buku.png"
             alt="Pixel Buku"
-            className="absolute top-[56%] sm:top-[52%] md:top-auto md:bottom-20 lg:bottom-24 left-3.5 sm:left-6 md:left-10 lg:left-16 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
+            className="absolute top-[170px] sm:top-[195px] md:top-auto md:bottom-20 lg:bottom-24 left-3.5 sm:left-6 md:left-10 lg:left-16 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
           />
 
           {/* Aset Atas Kanan: Pensil (Jarak aman di bawah tombol menu Navbar mobile) */}
@@ -78,43 +78,43 @@ export default function MateriPage() {
           <img
             src="/images/pensil.png"
             alt="Pixel Pensil"
-            className="absolute top-[68px] sm:top-20 md:top-24 lg:top-28 right-3.5 sm:right-6 md:right-[26%] lg:right-[33%] w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+            className="absolute top-[64px] sm:top-20 md:top-24 lg:top-28 right-3.5 sm:right-6 md:right-[26%] lg:right-[33%] w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
           />
-          {/* Aset Tengah Kanan: Bintang */}
+          {/* Aset Tengah Kanan: Bintang (Tingkat tengah mengapit teks) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang"
-            className="absolute top-[38%] sm:top-[38%] md:top-[42%] right-3 sm:right-5 md:right-6 lg:right-10 w-7 sm:w-10 md:w-14 lg:w-18 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute top-[115px] sm:top-[130px] md:top-[42%] right-3 sm:right-5 md:right-6 lg:right-10 w-7 sm:w-10 md:w-14 lg:w-18 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
           {/* Aset Bawah Kanan: Bumi (Disebarkan mendekati wave di mobile) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bumi.png"
             alt="Pixel Bumi"
-            className="absolute top-[56%] sm:top-[52%] md:top-auto md:bottom-20 lg:bottom-22 right-3.5 sm:right-6 md:right-10 lg:right-16 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+            className="absolute top-[170px] sm:top-[195px] md:top-auto md:bottom-20 lg:bottom-22 right-3.5 sm:right-6 md:right-10 lg:right-16 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
           />
         </div>
 
-        {/* Bagian Header Ungu Atas (In-flow di mobile dengan bg-[#2f0f53], absolute di desktop) */}
-        <div className="relative md:absolute md:inset-0 z-20 w-full bg-[#2f0f53] md:bg-transparent pt-14 sm:pt-16 md:pt-36 pb-2 sm:pb-3 md:pb-0 px-4 sm:px-6 flex flex-col items-center pointer-events-none">
+        {/* Bagian Header Ungu Atas (Dipangkas rapi, in-flow di mobile dengan bg-[#2f0f53], absolute di desktop) */}
+        <div className="relative md:absolute md:inset-0 z-20 w-full bg-[#2f0f53] md:bg-transparent pt-12 sm:pt-14 md:pt-36 pb-1 sm:pb-2 md:pb-0 px-4 sm:px-6 flex flex-col items-center pointer-events-none">
           {/* Konten Hero: Title & Subtitle - Di area ungu atas pada mobile, floating di desktop */}
           <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto">
-            {/* Title: MATERI (Kapital, text-white, terpusat proporsional di area ungu) */}
-            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-2.5 sm:mt-4 md:mt-6 pt-1 sm:pt-3 md:pt-8 mb-1.5 sm:mb-2 md:mb-6 uppercase">
+            {/* Title: MATERI (Kapital, text-white, digeser ke bawah mendekati wave) */}
+            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-4 sm:mt-5 md:mt-6 pt-2 sm:pt-3 md:pt-8 mb-1.5 sm:mb-2 md:mb-6 uppercase">
               MATERI
             </h1>
 
-            {/* Sub-teks (Berada terpusat di dalam area ungu atas tanpa sisa ruang kosong berlebih) */}
-            <p className="text-white font-bold text-xs sm:text-xs md:text-base text-center max-w-[290px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-1 sm:mt-1.5 md:mt-4 mb-2 sm:mb-3 md:mb-6 select-none">
+            {/* Sub-teks (Berada terpusat proporsional di dalam area ungu tanpa sisa ruang kosong berlebih) */}
+            <p className="text-white font-bold text-xs sm:text-xs md:text-base text-center max-w-[290px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-1.5 sm:mt-2 md:mt-4 mb-2 sm:mb-2.5 md:mb-6 select-none">
               Ayo mulai belajar IPAS, Matematika, dan Bahasa
               <br className="hidden sm:inline" /> Inggris bersama!
             </p>
           </div>
         </div>
 
-        {/* Rendering Wave Image: Transparan murni di belakang wave pada mobile agar lekukan transparan memperlihatkan background putih asli */}
-        <div className="w-full relative z-0 -mt-1 sm:-mt-2 md:-mt-10 bg-transparent">
+        {/* Rendering Wave Image: Ditarik ke atas (-mt-10) di mobile untuk memangkas area ungu berlebih sebelum wave */}
+        <div className="w-full relative z-0 -mt-10 sm:-mt-12 md:-mt-10 bg-transparent">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/Vector ungu.png"
