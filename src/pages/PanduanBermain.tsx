@@ -72,7 +72,7 @@ export default function PanduanBermain() {
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang"
-            className="absolute top-16 sm:top-20 md:top-24 lg:top-28 left-4 sm:left-8 md:left-10 lg:left-14 w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute top-16 sm:top-20 md:top-24 lg:top-28 left-4 sm:left-8 md:left-36 lg:left-[22%] w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
           {/* Aset Sisi Kiri: Bumi */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -94,7 +94,7 @@ export default function PanduanBermain() {
           <img
             src="/images/pensil.png"
             alt="Pixel Pensil"
-            className="absolute top-16 sm:top-20 md:top-24 lg:top-28 right-4 sm:right-8 md:right-10 lg:right-14 w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+            className="absolute top-16 sm:top-20 md:top-24 lg:top-28 right-4 sm:right-8 md:right-36 lg:right-[22%] w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
           />
           {/* Aset Sisi Kanan: Bintang */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
