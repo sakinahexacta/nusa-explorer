@@ -61,7 +61,7 @@ export default function SubjectsSection() {
                 </p>
 
                 {/* Light Blue Pill Button */}
-                <button className="bg-[#93C5FD] hover:bg-[#BFDBFE] text-[#1E3A8A] font-extrabold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">
+                <button className="bg-[#93C5FD] hover:bg-[#BFDBFE] text-[#190C38] font-extrabold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">
                   Mulai Belajar
                 </button>
               </div>

@@ -65,6 +65,53 @@ export default function PanduanBermain() {
           />
         </div>
 
+        {/* Floating Pixel Art Assets (Bintang, Pensil, Bumi, Aset Buku - Diperbesar w-20 hingga w-24 dan didekatkan ke tengah) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+          {/* Aset Atas Kiri: Bintang (Didekatkan ke tengah di area atas judul) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bintang.png"
+            alt="Pixel Bintang"
+            className="absolute top-16 sm:top-20 md:top-20 lg:top-24 left-4 sm:left-10 md:left-[26%] lg:left-[33%] w-10 sm:w-14 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+          />
+          {/* Aset Sisi Kiri: Bumi */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bumi.png"
+            alt="Pixel Bumi"
+            className="absolute top-[38%] sm:top-[40%] md:top-[42%] left-3 sm:left-6 md:left-8 lg:left-12 w-10 sm:w-14 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+          />
+          {/* Aset Bawah Kiri: Buku */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/aset buku.png"
+            alt="Pixel Buku"
+            className="absolute bottom-24 sm:bottom-28 md:bottom-24 lg:bottom-28 left-4 sm:left-8 md:left-12 lg:left-16 w-10 sm:w-14 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
+          />
+
+          {/* Aset Atas Kanan: Pensil (Didekatkan ke tengah di area atas judul) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/pensil.png"
+            alt="Pixel Pensil"
+            className="absolute top-16 sm:top-20 md:top-24 lg:top-28 right-4 sm:right-10 md:right-[26%] lg:right-[33%] w-10 sm:w-14 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+          />
+          {/* Aset Sisi Kanan: Bintang */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bintang.png"
+            alt="Pixel Bintang"
+            className="absolute top-[38%] sm:top-[40%] md:top-[42%] right-3 sm:right-6 md:right-8 lg:right-12 w-9 sm:w-12 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+          />
+          {/* Aset Bawah Kanan: Bumi */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bumi.png"
+            alt="Pixel Bumi"
+            className="absolute bottom-24 sm:bottom-28 md:bottom-24 lg:bottom-28 right-4 sm:right-8 md:right-12 lg:right-16 w-10 sm:w-14 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+          />
+        </div>
+
         {/* Konten Hero: Title & 4 Cards melayang di atas Wave - relative z-20 agar selalu di depan */}
         <div className="absolute inset-0 z-20 flex flex-col items-center pt-24 sm:pt-28 md:pt-36 px-4 sm:px-6 pointer-events-auto">
           <div className="max-w-6xl w-full mx-auto flex flex-col items-center">

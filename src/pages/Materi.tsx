@@ -49,28 +49,28 @@ export default function MateriPage() {
       {/* 1. Hero Section dengan Background Wave Vector ungu.png (Presisi Responsif Mobile & Desktop) */}
       {/* 1. Hero Section: Header Ungu Atas & Background Wave Vector ungu.png */}
       <div className="relative z-20 w-full overflow-visible">
-        {/* Floating Pixel Art Assets (Bintang, Pensil, Bumi, Aset Buku - Tersebar bertingkat: Atas, Tengah, Bawah) */}
+        {/* Floating Pixel Art Assets (Bintang, Pensil, Bumi, Aset Buku - Tersebar bertingkat: Atas, Tengah, Bawah - Skala w-20 hingga w-24) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-30">
           {/* Tingkat Atas Kiri: Bintang (Samping navbar / di atas judul MATERI) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang"
-            className="absolute top-[48px] sm:top-[52px] md:top-20 lg:top-24 left-3 sm:left-5 md:left-[26%] lg:left-[33%] w-6 sm:w-7 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute top-[48px] sm:top-[52px] md:top-20 lg:top-24 left-3 sm:left-5 md:left-[26%] lg:left-[33%] w-7 sm:w-8 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
           {/* Tingkat Tengah Kiri: Bumi (Samping kiri teks deskripsi) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bumi.png"
             alt="Pixel Bumi"
-            className="absolute top-[108px] sm:top-[114px] md:top-[42%] left-2.5 sm:left-4 md:left-6 lg:left-10 w-7 sm:w-9 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+            className="absolute top-[108px] sm:top-[114px] md:top-[42%] left-2.5 sm:left-4 md:left-6 lg:left-10 w-7 sm:w-9 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
           />
           {/* Tingkat Bawah Kiri: Buku (Dekat lekukan wave ungu) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/aset buku.png"
             alt="Pixel Buku"
-            className="absolute top-[154px] sm:top-[162px] md:top-auto md:bottom-20 lg:bottom-24 left-3 sm:left-6 md:left-10 lg:left-16 w-8 sm:w-10 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
+            className="absolute top-[154px] sm:top-[162px] md:top-auto md:bottom-20 lg:bottom-24 left-3 sm:left-6 md:left-10 lg:left-16 w-8 sm:w-10 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
           />
 
           {/* Tingkat Atas Kanan: Pensil (Samping navbar / di atas judul MATERI) */}
@@ -78,21 +78,21 @@ export default function MateriPage() {
           <img
             src="/images/pensil.png"
             alt="Pixel Pensil"
-            className="absolute top-[48px] sm:top-[52px] md:top-24 lg:top-28 right-3 sm:right-5 md:right-[26%] lg:right-[33%] w-6 sm:w-7 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+            className="absolute top-[48px] sm:top-[52px] md:top-24 lg:top-28 right-3 sm:right-5 md:right-[26%] lg:right-[33%] w-7 sm:w-8 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
           />
           {/* Tingkat Tengah Kanan: Bintang (Samping kanan teks deskripsi) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang"
-            className="absolute top-[108px] sm:top-[114px] md:top-[42%] right-2.5 sm:right-4 md:right-6 lg:right-10 w-6 sm:w-8 md:w-14 lg:w-18 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute top-[108px] sm:top-[114px] md:top-[42%] right-2.5 sm:right-4 md:right-6 lg:right-10 w-6 sm:w-8 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
           {/* Tingkat Bawah Kanan: Bumi (Dekat lekukan wave ungu) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bumi.png"
             alt="Pixel Bumi"
-            className="absolute top-[154px] sm:top-[162px] md:top-auto md:bottom-20 lg:bottom-22 right-3 sm:right-6 md:right-10 lg:right-16 w-8 sm:w-10 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+            className="absolute top-[154px] sm:top-[162px] md:top-auto md:bottom-20 lg:bottom-22 right-3 sm:right-6 md:right-10 lg:right-16 w-8 sm:w-10 md:w-20 lg:w-24 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
           />
         </div>
 
@@ -186,12 +186,12 @@ export default function MateriPage() {
                 {item.title === "IPAS" ? (
                   <Link
                     href="/materi/ipas"
-                    className="w-full block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#072464] font-black font-poppins text-xs sm:text-base py-3 px-6 rounded-2xl shadow-lg transition-all duration-150 ease-in-out hover:scale-[1.02] active:scale-95 active:opacity-85 active:shadow-none text-center cursor-pointer select-none touch-manipulation"
+                    className="w-full block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-black font-poppins text-xs sm:text-base py-3 px-6 rounded-2xl shadow-lg transition-all duration-150 ease-in-out hover:scale-[1.02] active:scale-95 active:opacity-85 active:shadow-none text-center cursor-pointer select-none touch-manipulation"
                   >
                     Mulai Belajar
                   </Link>
                 ) : (
-                  <button className="w-full bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#072464] font-black font-poppins text-xs sm:text-base py-3 px-6 rounded-2xl shadow-lg transition-all duration-150 ease-in-out hover:scale-[1.02] active:scale-95 active:opacity-85 active:shadow-none text-center cursor-pointer select-none touch-manipulation">
+                  <button className="w-full bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-black font-poppins text-xs sm:text-base py-3 px-6 rounded-2xl shadow-lg transition-all duration-150 ease-in-out hover:scale-[1.02] active:scale-95 active:opacity-85 active:shadow-none text-center cursor-pointer select-none touch-manipulation">
                     Mulai Belajar
                   </button>
                 )}
