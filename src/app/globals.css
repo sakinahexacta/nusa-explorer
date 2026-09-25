@@ -81,3 +81,60 @@
 .animate-slide-up-solid {
   animation: slideUpSolid 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Floating animations for pixel art assets */
+@keyframes pixelFloat1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+@keyframes pixelFloat2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+}
+
+@keyframes pixelFloat3 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+@keyframes pixelFloat4 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(-1.5deg);
+  }
+}
+
+.animate-pixel-float-1 {
+  animation: pixelFloat1 3.2s ease-in-out infinite;
+}
+
+.animate-pixel-float-2 {
+  animation: pixelFloat2 4s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+.animate-pixel-float-3 {
+  animation: pixelFloat3 3.6s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+.animate-pixel-float-4 {
+  animation: pixelFloat4 4.4s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
