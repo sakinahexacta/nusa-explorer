@@ -138,3 +138,11 @@
   animation-delay: 1.2s;
 }
 
+/* Hide floating dev indicators / portals that overlay the bottom-left */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay] {
+  display: none !important;
+}
+
+
