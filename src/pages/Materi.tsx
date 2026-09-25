@@ -56,7 +56,7 @@ export default function MateriPage() {
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang"
-            className="absolute top-[48px] sm:top-[52px] md:top-20 lg:top-24 left-3 sm:left-5 md:left-10 lg:left-14 w-7 sm:w-9 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute top-[48px] sm:top-[52px] md:top-20 lg:top-24 left-3 sm:left-5 md:left-20 lg:left-32 w-7 sm:w-9 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
           {/* Tingkat Tengah Kiri: Bumi */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -78,7 +78,7 @@ export default function MateriPage() {
           <img
             src="/images/pensil.png"
             alt="Pixel Pensil"
-            className="absolute top-[48px] sm:top-[52px] md:top-20 lg:top-24 right-3 sm:right-5 md:right-10 lg:right-14 w-7 sm:w-9 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+            className="absolute top-[48px] sm:top-[52px] md:top-20 lg:top-24 right-3 sm:right-5 md:right-20 lg:right-32 w-7 sm:w-9 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
           />
           {/* Tingkat Tengah Kanan: Bintang */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
