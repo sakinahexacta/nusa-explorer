@@ -50,58 +50,58 @@ export default function MateriPage() {
       {/* 1. Hero Section: Header Ungu Atas & Background Wave Vector ungu.png */}
       <div className="relative z-20 w-full overflow-visible">
         {/* Bagian Header Ungu Atas (In-flow di mobile dengan bg-[#2f0f53], absolute di desktop) */}
-        <div className="relative md:absolute md:inset-0 z-20 w-full bg-[#2f0f53] md:bg-transparent pt-20 sm:pt-24 md:pt-36 pb-6 sm:pb-8 md:pb-0 px-4 sm:px-6 flex flex-col items-center pointer-events-none">
-          {/* Floating Pixel Art Assets (Bintang, Pensil, Bumi, Aset Buku - Skala proporsional & letak sudut rapi) */}
+        <div className="relative md:absolute md:inset-0 z-20 w-full bg-[#2f0f53] md:bg-transparent pt-16 sm:pt-20 md:pt-36 pb-2 sm:pb-4 md:pb-0 px-4 sm:px-6 flex flex-col items-center pointer-events-none">
+          {/* Floating Pixel Art Assets (Bintang, Pensil, Bumi, Aset Buku - Skala proporsional & letak sudut rapi dengan jarak aman dari Navbar) */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-            {/* Aset Atas Kiri: Bintang */}
+            {/* Aset Atas Kiri: Bintang (Jarak aman di bawah Navbar mobile) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/bintang.png"
               alt="Pixel Bintang"
-              className="absolute top-14 sm:top-16 md:top-20 lg:top-24 left-3 sm:left-5 md:left-[26%] lg:left-[33%] w-7 sm:w-10 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+              className="absolute top-[72px] sm:top-20 md:top-20 lg:top-24 left-3.5 sm:left-6 md:left-[26%] lg:left-[33%] w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
             />
             {/* Aset Sisi Kiri: Bumi */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/bumi.png"
               alt="Pixel Bumi"
-              className="absolute top-[48%] sm:top-[44%] md:top-[42%] left-3 sm:left-5 md:left-6 lg:left-10 w-7 sm:w-10 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+              className="absolute top-[50%] sm:top-[46%] md:top-[42%] left-3 sm:left-5 md:left-6 lg:left-10 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
             />
             {/* Aset Bawah Kiri: Buku */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/aset buku.png"
               alt="Pixel Buku"
-              className="absolute bottom-2 sm:bottom-4 md:bottom-20 lg:bottom-24 left-3 sm:left-6 md:left-10 lg:left-16 w-7 sm:w-10 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
+              className="absolute bottom-1.5 sm:bottom-3 md:bottom-20 lg:bottom-24 left-3.5 sm:left-6 md:left-10 lg:left-16 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
             />
 
-            {/* Aset Atas Kanan: Pensil */}
+            {/* Aset Atas Kanan: Pensil (Jarak aman di bawah tombol menu Navbar mobile) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/pensil.png"
               alt="Pixel Pensil"
-              className="absolute top-14 sm:top-16 md:top-24 lg:top-28 right-3 sm:right-5 md:right-[26%] lg:right-[33%] w-7 sm:w-10 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+              className="absolute top-[72px] sm:top-20 md:top-24 lg:top-28 right-3.5 sm:right-6 md:right-[26%] lg:right-[33%] w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
             />
             {/* Aset Sisi Kanan: Bintang */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/bintang.png"
               alt="Pixel Bintang"
-              className="absolute top-[48%] sm:top-[44%] md:top-[42%] right-3 sm:right-5 md:right-6 lg:right-10 w-6 sm:w-9 md:w-14 lg:w-18 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+              className="absolute top-[50%] sm:top-[46%] md:top-[42%] right-3 sm:right-5 md:right-6 lg:right-10 w-7 sm:w-10 md:w-14 lg:w-18 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
             />
             {/* Aset Bawah Kanan: Bumi */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/bumi.png"
               alt="Pixel Bumi"
-              className="absolute bottom-2 sm:bottom-4 md:bottom-20 lg:bottom-22 right-3 sm:right-6 md:right-10 lg:right-16 w-7 sm:w-10 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+              className="absolute bottom-1.5 sm:bottom-3 md:bottom-20 lg:bottom-22 right-3.5 sm:right-6 md:right-10 lg:right-16 w-8 sm:w-11 md:w-16 lg:w-20 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
             />
           </div>
 
           {/* Konten Hero: Title & Subtitle - Di area ungu atas pada mobile, floating di desktop */}
           <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto">
-            {/* Title: MATERI (Kapital, text-white, ukuran responsif rapi) */}
-            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-2 sm:mt-4 md:mt-6 pt-1 sm:pt-4 md:pt-8 mb-2 sm:mb-3 md:mb-6 uppercase">
+            {/* Title: MATERI (Kapital, text-white, digeser sedikit ke bawah agar pas dan proporsional) */}
+            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-3.5 sm:mt-5 md:mt-6 pt-2 sm:pt-4 md:pt-8 mb-2 sm:mb-3 md:mb-6 uppercase">
               MATERI
             </h1>
 
