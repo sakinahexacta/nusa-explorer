@@ -50,52 +50,52 @@ export default function MateriPage() {
       <div className="relative z-20 w-full overflow-visible">
         {/* Floating Pixel Art Assets (z-30 agar tampil di atas background ungu & wave di mobile & desktop) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-30">
-          {/* Aset Bintang Atas: Di kiri atas, dekat logo, tidak menumpuk */}
+          {/* Icon BINTANG (Kiri Atas): Masuk mendekati judul, tidak menumpuk di atas logo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bintang.png"
             alt="Pixel Bintang Atas"
-            className="absolute block top-[2%] left-[10%] md:top-20 lg:top-24 md:left-36 lg:left-[22%] w-7 sm:w-8 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute block top-[4%] left-[12%] md:top-20 lg:top-24 md:left-36 lg:left-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
           />
 
-          {/* Aset Pensil Atas: Di kanan atas, di bawah menu hamburger */}
+          {/* Icon PENSIL (Kanan Atas): Di kanan atas, tidak menumpuk di tombol hamburger */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/pensil.png"
             alt="Pixel Pensil Atas"
-            className="absolute block top-[8%] right-[5%] md:top-20 lg:top-24 md:right-36 lg:right-[22%] w-7 sm:w-8 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+            className="absolute block top-[6%] right-[10%] md:top-20 lg:top-24 md:right-36 lg:right-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
           />
 
-          {/* Aset Buku Besar Kiri: Di kiri tengah, di area ungu sebelum gelombang putih, ukuran besar proporsional */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/aset buku.png"
-            alt="Pixel Buku Besar"
-            className="absolute block top-[15%] left-0 md:top-auto md:bottom-20 lg:bottom-24 md:left-10 lg:left-16 w-12 sm:w-14 md:w-18 lg:w-22 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
-          />
-
-          {/* Aset Bumi Kiri: Di sisi kiri tengah */}
+          {/* Icon BUMI (Kiri Tengah): Di pinggir kiri area ungu */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bumi.png"
             alt="Pixel Bumi Kiri"
-            className="absolute block top-[40%] left-2 sm:left-4 md:top-[42%] md:left-8 lg:left-12 w-7 sm:w-8 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+            className="absolute block top-[30%] left-[4%] md:top-[42%] md:left-8 lg:left-12 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
           />
 
-          {/* Aset Bumi Kanan: Di sisi kanan bawah mendekati gelombang */}
+          {/* Icon BUKU (Kiri Bawah): Di pinggir kiri area bawah */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/aset buku.png"
+            alt="Pixel Buku Bawah"
+            className="absolute block bottom-[10%] left-[4%] md:top-auto md:bottom-20 lg:bottom-24 md:left-10 lg:left-16 w-7 h-7 md:w-11 md:h-11 lg:w-14 lg:h-14 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
+          />
+
+          {/* Icon BINTANG KEDUA (Kanan Tengah): Di pinggir kanan area ungu */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bintang.png"
+            alt="Pixel Bintang Kanan"
+            className="absolute block top-[45%] right-[4%] md:top-[42%] md:bottom-auto md:right-8 lg:right-12 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+          />
+
+          {/* Icon BUMI KEDUA (Kanan Bawah): Di pinggir kanan area bawah */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/bumi.png"
             alt="Pixel Bumi Kanan"
-            className="absolute block bottom-[18%] right-2 sm:right-4 md:top-auto md:bottom-20 lg:bottom-24 md:right-10 lg:right-16 w-7 sm:w-8 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
-          />
-
-          {/* Aset Bintang Bawah: Di kanan bawah, di area putih dekat aset bumi */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/bintang.png"
-            alt="Pixel Bintang Bawah"
-            className="absolute block bottom-[2%] right-[5%] md:top-[42%] md:bottom-auto md:right-8 lg:right-12 w-6 sm:w-7 md:w-12 lg:w-14 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+            className="absolute block bottom-[8%] right-[4%] md:top-auto md:bottom-20 lg:bottom-24 md:right-10 lg:right-16 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
           />
         </div>
 
