@@ -45,9 +45,9 @@ export default function SubjectsSection() {
           <div className="h-[2px] bg-purple-900/20 flex-1 max-w-[80px] sm:max-w-xs" />
         </div>
 
-        {/* Deep Purple Gradient Container Card */}
-        <div className="bg-gradient-to-b from-[#3B1B63] to-[#240E3E] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/20">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-purple-400/25">
+        {/* Vibrant Purple Gradient Container Card (Persis sama dengan 4 card hero section) */}
+        <div className="bg-gradient-to-b from-[#6D28D9] via-[#4C1D95] to-[#2E1065] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/30">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-purple-300/30">
             {subjects.map((subject, index) => (
               <div
                 key={subject.id}
