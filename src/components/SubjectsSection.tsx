@@ -45,9 +45,9 @@ export default function SubjectsSection() {
           <div className="h-[2px] bg-purple-900/20 flex-1 max-w-[80px] sm:max-w-xs" />
         </div>
 
-        {/* Purple Container Card */}
-        <div className="bg-[#380E6E] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/20">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-purple-400/25">
+        {/* Ungu Muda Container Card (#E5D7F2) */}
+        <div className="bg-[#E5D7F2] rounded-3xl p-5 sm:p-8 md:p-10 shadow-xl border border-purple-300/60">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-purple-300/80">
             {subjects.map((subject, index) => (
               <div
                 key={subject.id}
@@ -56,19 +56,19 @@ export default function SubjectsSection() {
                 }`}
               >
                 {/* Subject Title */}
-                <h3 className="text-base sm:text-xl md:text-2xl font-black tracking-wider text-white mb-2 sm:mb-3">
+                <h3 className="text-base sm:text-xl md:text-2xl font-black tracking-wider text-[#280952] mb-2 sm:mb-3">
                   {subject.title}
                 </h3>
 
                 {/* Subject Description */}
-                <p className="text-purple-200/90 text-xs sm:text-[13px] leading-relaxed mb-6 sm:mb-8 flex-1 min-h-[40px] max-w-xs">
+                <p className="text-slate-700 text-xs sm:text-[13px] leading-relaxed mb-6 sm:mb-8 flex-1 min-h-[40px] max-w-xs">
                   {subject.description}
                 </p>
 
-                {/* Light Blue Pill Button with Dark Purple Text */}
+                {/* Light Blue Pill Button with Dark Purple Text, Font Normal */}
                 <Link
                   href={subject.href}
-                  className="w-full max-w-[260px] sm:max-w-xs block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-black font-poppins text-xs sm:text-sm py-2.5 sm:py-3 px-6 rounded-full shadow-md transition-all duration-200 hover:scale-105 active:scale-95 text-center cursor-pointer select-none touch-manipulation"
+                  className="w-full max-w-[260px] sm:max-w-xs block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-normal font-poppins text-xs sm:text-sm py-2.5 sm:py-3 px-6 rounded-full shadow-md transition-all duration-200 hover:scale-105 active:scale-95 text-center cursor-pointer select-none touch-manipulation"
                 >
                   Mulai Belajar
                 </Link>
@@ -80,4 +80,3 @@ export default function SubjectsSection() {
     </section>
   );
 }
-
