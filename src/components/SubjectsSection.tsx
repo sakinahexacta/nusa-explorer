@@ -45,8 +45,8 @@ export default function SubjectsSection() {
           <div className="h-[2px] bg-purple-900/20 flex-1 max-w-[80px] sm:max-w-xs" />
         </div>
 
-        {/* Solid Vibrant Purple Container Card */}
-        <div className="bg-[#6C2BD9] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/30">
+        {/* Solid Deep Purple Container Card */}
+        <div className="bg-[#4C1D95] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/25">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20">
             {subjects.map((subject, index) => (
               <div
