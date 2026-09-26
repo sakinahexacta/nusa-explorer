@@ -189,12 +189,12 @@ export default function MateriPage() {
                 {item.title === "IPAS" ? (
                   <Link
                     href="/materi/ipas"
-                    className="w-full block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-normal font-poppins text-xs sm:text-base py-3 sm:py-3.5 px-6 rounded-2xl shadow-lg transition-transform duration-150 ease-in-out hover:scale-[1.02] active:scale-95 text-center cursor-pointer select-none touch-manipulation"
+                    className="w-full block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-semibold font-poppins text-xs sm:text-base py-3 sm:py-3.5 px-6 rounded-2xl shadow-lg transition-transform duration-150 ease-in-out hover:scale-[1.02] active:scale-95 text-center cursor-pointer select-none touch-manipulation"
                   >
                     Mulai Belajar
                   </Link>
                 ) : (
-                  <button className="w-full bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-normal font-poppins text-xs sm:text-base py-3 sm:py-3.5 px-6 rounded-2xl shadow-lg transition-transform duration-150 ease-in-out hover:scale-[1.02] active:scale-95 text-center cursor-pointer select-none touch-manipulation">
+                  <button className="w-full bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-semibold font-poppins text-xs sm:text-base py-3 sm:py-3.5 px-6 rounded-2xl shadow-lg transition-transform duration-150 ease-in-out hover:scale-[1.02] active:scale-95 text-center cursor-pointer select-none touch-manipulation">
                     Mulai Belajar
                   </button>
                 )}
