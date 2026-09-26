@@ -45,9 +45,9 @@ export default function SubjectsSection() {
           <div className="h-[2px] bg-purple-900/20 flex-1 max-w-[80px] sm:max-w-xs" />
         </div>
 
-        {/* Ungu Muda Container Card (#E5D7F2) */}
-        <div className="bg-[#E5D7F2] rounded-3xl p-5 sm:p-8 md:p-10 shadow-xl border border-purple-300/60">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-purple-300/80">
+        {/* Deep Purple Gradient Container Card */}
+        <div className="bg-gradient-to-b from-[#3B1B63] to-[#240E3E] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/20">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-purple-400/25">
             {subjects.map((subject, index) => (
               <div
                 key={subject.id}
@@ -55,13 +55,13 @@ export default function SubjectsSection() {
                   index !== 0 ? "pt-7 md:pt-4" : ""
                 }`}
               >
-                {/* Subject Title */}
-                <h3 className="text-base sm:text-xl md:text-2xl font-black tracking-wider text-[#280952] mb-2 sm:mb-3">
+                {/* Subject Title (Putih) */}
+                <h3 className="text-base sm:text-xl md:text-2xl font-black tracking-wider text-white mb-2 sm:mb-3">
                   {subject.title}
                 </h3>
 
-                {/* Subject Description */}
-                <p className="text-slate-700 text-xs sm:text-[13px] leading-relaxed mb-6 sm:mb-8 flex-1 min-h-[40px] max-w-xs">
+                {/* Subject Description (Putih) */}
+                <p className="text-white/90 text-xs sm:text-[13px] leading-relaxed mb-6 sm:mb-8 flex-1 min-h-[40px] max-w-xs">
                   {subject.description}
                 </p>
 
