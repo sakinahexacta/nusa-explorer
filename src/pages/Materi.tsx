@@ -46,92 +46,87 @@ export default function MateriPage() {
       {/* Global Navbar dengan Dynamic Scroll Background & Mobile Hamburger Menu */}
       <Navbar />
 
-      {/* 1. Hero Section: Header Ungu Atas & Background Wave Vector ungu.png */}
+      {/* 1. Hero Section: Background Wave Vector ungu.png Bersih (Clean Background Tanpa Lapisan Gradasi) */}
       <div className="relative z-20 w-full overflow-visible">
-        {/* Floating Pixel Art Assets (z-30 agar tampil di atas background ungu & wave di mobile & desktop) */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-30">
-          {/* Icon BINTANG (Kiri Atas): Diturunkan di bawah logo Nusa Explorer dan agak ke tengah */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/bintang.png"
-            alt="Pixel Bintang Atas"
-            className="absolute block top-[18%] left-[10%] md:top-20 lg:top-24 md:left-36 lg:left-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
-          />
-
-          {/* Icon PENSIL (Kanan Atas): Diturunkan di bawah tombol hamburger menu */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/pensil.png"
-            alt="Pixel Pensil Atas"
-            className="absolute block top-[22%] right-[8%] md:top-20 lg:top-24 md:right-36 lg:right-[22%] w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
-          />
-
-          {/* Icon BUMI (Kiri Tengah): Di pinggir kiri area ungu */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/bumi.png"
-            alt="Pixel Bumi Kiri"
-            className="absolute block top-[38%] left-[4%] md:top-[42%] md:left-8 lg:left-12 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
-          />
-
-          {/* Icon BUKU (Kiri Bawah): Di pinggir kiri area bawah */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/aset buku.png"
-            alt="Pixel Buku Bawah"
-            className="absolute block bottom-[10%] left-[4%] md:top-auto md:bottom-20 lg:bottom-24 md:left-10 lg:left-16 w-7 h-7 md:w-11 md:h-11 lg:w-14 lg:h-14 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
-          />
-
-          {/* Icon BINTANG KEDUA (Kanan Tengah): Di pinggir kanan area ungu */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/bintang.png"
-            alt="Pixel Bintang Kanan"
-            className="absolute block top-[45%] right-[4%] md:top-[42%] md:bottom-auto md:right-8 lg:right-12 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
-          />
-
-          {/* Icon BUMI KEDUA (Kanan Bawah): Di pinggir kanan area bawah */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/bumi.png"
-            alt="Pixel Bumi Kanan"
-            className="absolute block bottom-[8%] right-[4%] md:top-auto md:bottom-20 lg:bottom-24 md:right-10 lg:right-16 w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12 object-contain drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
-          />
-        </div>
-
-        {/* Bagian Header Ungu Atas (In-flow di mobile dengan bg-[#2e0e52], absolute di desktop) */}
-        <div className="relative md:absolute md:inset-0 z-20 w-full bg-[#2e0e52] md:bg-transparent pt-28 sm:pt-32 md:pt-36 pb-3 md:pb-0 px-4 sm:px-6 flex flex-col items-center pointer-events-none">
-          {/* Konten Hero: Title & Subtitle - Rata Tengah (text-center) dengan ruang nafas lega di bawah navbar */}
-          <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto mt-2 sm:mt-4 md:mt-0">
-            {/* Title: MATERI (Kapital, pixel text, text-center) */}
-            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-2 sm:mt-4 md:mt-6 pt-1 sm:pt-2 md:pt-8 mb-1.5 sm:mb-2 md:mb-6 uppercase">
-              MATERI
-            </h1>
-
-            {/* Sub-teks (Rata Tengah, berada tepat di bawah judul mendekati area wave) */}
-            <p className="text-white font-bold text-xs sm:text-sm md:text-base text-center max-w-[280px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-1 sm:mt-1.5 md:mt-4 mb-3 sm:mb-4 md:mb-6 select-none">
-              Ayo mulai belajar IPAS, Matematika, dan Bahasa
-              <br className="hidden sm:inline" /> Inggris bersama!
-            </p>
-          </div>
-        </div>
-
-
-        {/* Rendering Wave Image: Menyatu mulus dengan area ungu header */}
-        <div className="w-full relative z-0 -mt-8 sm:-mt-10 md:-mt-10 bg-transparent">
+        {/* Rendering Wave Image Murni dengan Ketinggian Lebih Lega di Mobile (Wave terdorong aman di bawah teks) */}
+        <div className="w-full relative z-0 -mt-4 sm:-mt-6 md:-mt-10 overflow-hidden h-[330px] sm:h-[380px] md:h-auto">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/Vector ungu.png"
             alt="Wave Vector"
-            className="w-full h-auto object-contain md:object-cover lg:object-fill md:min-h-[560px] lg:min-h-0 block max-w-none pointer-events-none select-none"
+            className="w-full h-full md:h-auto md:min-h-[560px] lg:min-h-0 block max-w-none pointer-events-none select-none object-cover lg:object-fill"
           />
+        </div>
+
+        {/* Floating Pixel Art Assets (z-30 agar tampil di atas background ungu & wave di mobile & desktop) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-30">
+          {/* Aset Atas Kiri: Bintang (Dekat judul MATERI di atas) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bintang.png"
+            alt="Pixel Bintang"
+            className="absolute top-16 sm:top-20 md:top-24 lg:top-28 left-[18%] sm:left-[20%] md:left-36 lg:left-[22%] w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+          />
+          {/* Aset Sisi Kiri: Bumi (Flanking deskripsi di area ungu) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bumi.png"
+            alt="Pixel Bumi"
+            className="absolute top-[32%] sm:top-[34%] md:top-[44%] left-3 sm:left-6 md:left-8 lg:left-12 w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+          />
+          {/* Aset Bawah Kiri: Buku (Dinaikkan posisinya agar murni di area background ungu di atas wave putih) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/aset buku.png"
+            alt="Pixel Buku"
+            className="absolute top-[48%] sm:top-[50%] md:top-auto md:bottom-24 lg:bottom-28 left-4 sm:left-8 md:left-10 lg:left-14 w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-3 select-none"
+          />
+
+          {/* Aset Atas Kanan: Pensil (Dekat judul MATERI di atas) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/pensil.png"
+            alt="Pixel Pensil"
+            className="absolute top-16 sm:top-20 md:top-24 lg:top-28 right-[18%] sm:right-[20%] md:right-36 lg:right-[22%] w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-4 select-none"
+          />
+          {/* Aset Sisi Kanan: Bintang (Flanking deskripsi di area ungu) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bintang.png"
+            alt="Pixel Bintang"
+            className="absolute top-[32%] sm:top-[34%] md:top-[44%] right-3 sm:right-6 md:right-8 lg:right-12 w-9 sm:w-11 md:w-12 lg:w-14 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-1 select-none"
+          />
+          {/* Aset Bawah Kanan: Bumi (Dinaikkan posisinya agar murni di area background ungu di atas wave putih) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/bumi.png"
+            alt="Pixel Bumi"
+            className="absolute top-[48%] sm:top-[50%] md:top-auto md:bottom-24 lg:bottom-28 right-4 sm:right-8 md:right-10 lg:right-14 w-10 sm:w-12 md:w-14 lg:w-16 h-auto drop-shadow-xl pixel-art-crisp animate-pixel-float-2 select-none"
+          />
+        </div>
+
+        {/* Konten Hero: Title & Subtitle melayang di atas Wave - absolute inset-0 z-20 pointer-events-none */}
+        <div className="absolute inset-0 z-20 flex flex-col items-center pt-16 sm:pt-20 md:pt-36 pb-8 sm:pb-10 md:pb-0 px-4 sm:px-6 pointer-events-none">
+          {/* Konten Hero: Title & Subtitle - Rata Tengah (text-center) dengan jarak lega pas di atas wave putih */}
+          <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto mt-0.5 sm:mt-1 md:mt-0">
+            {/* Title: MATERI (Kapital, pixel text, text-center) */}
+            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-1 sm:mt-2 md:mt-6 pt-0 sm:pt-1 md:pt-8 mb-1 sm:mb-1.5 md:mb-6 uppercase">
+              MATERI
+            </h1>
+
+            {/* Sub-teks (Rata Tengah, font lebih compact di mobile dengan padding samping) */}
+            <p className="text-white font-bold text-[11px] sm:text-sm md:text-base text-center max-w-[260px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-0.5 sm:mt-1 md:mt-4 mb-0 sm:mb-1 md:mb-6 px-4 sm:px-0 select-none">
+              Ayo mulai belajar IPAS, Matematika, dan Bahasa
+              <br className="hidden sm:inline" /> Inggris bersama!
+            </p>
+          </div>
         </div>
       </div>
 
       {/* 2. Main Content Area (Background Putih Polos Menyatu Penuh dari Bawah Wave hingga Footer) */}
       <main className="relative z-20 w-full bg-white text-slate-900 pb-16 sm:pb-24 flex-1">
         {/* Karakter SD Siswi Berhijab & Speech Bubble "Hai Explorer!" Berdiri Sejajar di Area Wave Putih */}
-        <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 -mt-16 sm:-mt-32 md:-mt-64 lg:-mt-72 md:-translate-y-[80px] mb-6 sm:mb-8 md:mb-12 pointer-events-auto">
+        <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 -mt-28 sm:-mt-32 md:-mt-64 lg:-mt-72 md:-translate-y-[80px] mb-6 sm:mb-8 md:mb-12 pointer-events-auto">
           <div className="flex flex-row items-center justify-center gap-2.5 sm:gap-6 md:gap-8">
             {/* Karakter Siswa SD Berpakaian Seragam SD */}
             <div className="relative flex-shrink-0 select-none">

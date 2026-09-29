@@ -31,9 +31,11 @@ export default function Navbar({ forceSolid = false }: NavbarProps) {
   }, []);
 
   // Close mobile menu on route change
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setIsMobileMenuOpen(false);
-  }, [pathname]);
+  }
 
   const isPanduan = pathname === "/panduan";
   const isMateri = pathname === "/materi" || pathname?.startsWith("/materi/");
