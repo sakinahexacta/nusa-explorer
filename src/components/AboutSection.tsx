@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="relative z-20 py-10 sm:py-16 md:py-20 bg-white">
+    <section id="petunjuk" className="relative z-20 py-10 sm:py-16 md:py-20 bg-white scroll-mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* SISI KIRI: Judul "NUSA EXPLORER" dan Teks Deskripsi di bawahnya */}
@@ -23,18 +23,20 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* SISI KANAN: Gambar Screenshot Game (Peta/Desa Nusa) */}
+          {/* SISI KANAN: Gambar Peta Lengkap Nusa Explorer (Utuh & Proporsional) */}
           <div className="w-full flex justify-center md:justify-end">
             <div className="w-full max-w-md sm:max-w-lg md:max-w-none rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl border-2 sm:border-4 border-purple-950/15 bg-slate-900 group">
-              <div className="relative aspect-[16/10] w-full">
+              <div className="relative w-full">
                 <Image
-                  src="/images/map 3.png"
-                  alt="Map Preview Nusa Explorer"
-                  fill
+                  src="/images/hero-map.jpg"
+                  alt="Peta Lengkap Nusa Explorer"
+                  width={1024}
+                  height={560}
+                  priority
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover pixel-art-crisp transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto object-contain block pixel-art-crisp transition-transform duration-500 group-hover:scale-105 select-none"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
               </div>
             </div>
           </div>

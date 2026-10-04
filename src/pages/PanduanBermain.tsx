@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Play } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -48,13 +48,35 @@ const maps = [
 ];
 
 export default function PanduanBermain() {
+  // Support smooth scrolling to target element when navigating with hash
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window !== "undefined") {
+        const hash = window.location.hash;
+        if (hash) {
+          const id = hash.replace("#", "");
+          const el = document.getElementById(id);
+          if (el) {
+            setTimeout(() => {
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 100);
+          }
+        }
+      }
+    };
+
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
   return (
     <div className="w-full min-h-screen bg-white relative overflow-x-hidden p-0 m-0 text-slate-900 flex flex-col selection:bg-purple-600 selection:text-white">
       {/* Global Navbar */}
       <Navbar />
 
       {/* 1. Hero Section dengan Background Wave Vector ungu.png & 4 Step Cards */}
-      <div className="relative z-20 w-full overflow-visible">
+      <div id="petunjuk" className="relative z-20 w-full overflow-visible scroll-mt-20">
         {/* Rendering Wave Image: Mobile h-[330px] sm:h-[380px] (identik Materi.tsx), Desktop min-h-[560px] */}
         <div className="w-full relative z-0 -mt-4 sm:-mt-6 md:-mt-10 overflow-hidden md:overflow-visible h-[330px] sm:h-[380px] md:h-auto">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -194,12 +216,15 @@ export default function PanduanBermain() {
             ))}
           </div>
 
+          {/* Target Scroll Control Permainan */}
+          <div id="control-permainan" className="scroll-mt-24" />
+
           {/* Container "Control Permainan" DESKTOP: Tetap Sama Persis Seperti Semula (md:block) */}
           <div className="hidden md:block max-w-5xl w-full mx-auto mt-4 sm:mt-6 mb-8 md:mb-12 relative z-10">
-            <div className="bg-white rounded-3xl border-4 border-[#190C38] shadow-2xl p-6 sm:p-8 md:p-10 relative">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="bg-white rounded-3xl border-4 border-[#190C38] shadow-2xl p-6 sm:p-7 md:pt-6 md:pb-8 md:px-10 relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
                 {/* Left: Keyboard WASD Illustration */}
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center pt-1 md:pt-2">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/keyboard.png"
@@ -209,9 +234,9 @@ export default function PanduanBermain() {
                 </div>
 
                 {/* Right: Controls List */}
-                <div className="flex flex-col items-center md:items-stretch">
+                <div className="flex flex-col items-center md:items-stretch pt-0 md:pt-1">
                   {/* Header Banner */}
-                  <div className="w-full bg-[#190C38] text-white py-2.5 sm:py-3 px-6 rounded-2xl font-bold text-center text-sm sm:text-base mb-5 sm:mb-7 tracking-wide shadow-lg select-none border border-[#190C38]">
+                  <div className="w-full bg-[#190C38] text-white py-2.5 sm:py-3 px-6 rounded-2xl font-bold text-center text-sm sm:text-base mb-8 sm:mb-9 md:mb-11 tracking-wide shadow-lg select-none border border-[#190C38]">
                     Control Permainan
                   </div>
 
@@ -284,10 +309,10 @@ export default function PanduanBermain() {
 
           {/* Container "Control Permainan" KHUSUS MOBILE: Side-by-Side Sesuai Desain Acuan (md:hidden) */}
           <div className="block md:hidden w-full max-w-5xl mx-auto mb-8">
-            <div className="bg-white rounded-2xl border-[2.5px] border-[#190C38] shadow-xl p-3 relative">
-              <div className="grid grid-cols-12 gap-2 items-center">
+            <div className="bg-white rounded-2xl border-[2.5px] border-[#190C38] shadow-xl p-3 pt-2.5 relative">
+              <div className="grid grid-cols-12 gap-2 items-start">
                 {/* Left: Keyboard WASD Illustration */}
-                <div className="col-span-5 flex items-center justify-center">
+                <div className="col-span-5 flex items-center justify-center pt-0.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/keyboard.png"
@@ -297,9 +322,9 @@ export default function PanduanBermain() {
                 </div>
 
                 {/* Right: Controls List */}
-                <div className="col-span-7 flex flex-col items-stretch">
+                <div className="col-span-7 flex flex-col items-stretch pt-0.5">
                   {/* Header Banner */}
-                  <div className="w-full bg-[#190C38] text-white py-1.5 px-2 rounded-lg font-bold text-center text-[10px] mb-2.5 tracking-wide shadow select-none border border-[#190C38]">
+                  <div className="w-full bg-[#190C38] text-white py-1.5 px-2 rounded-lg font-bold text-center text-[10px] mb-3.5 sm:mb-4.5 tracking-wide shadow select-none border border-[#190C38]">
                     Control Permainan
                   </div>
 
@@ -391,7 +416,8 @@ export default function PanduanBermain() {
 
       {/* 3. Section Bawah: Background Ungu untuk Panduan Permainan, Poin Misi + Karakter, & Grid Map */}
       <div 
-        className="relative z-20 w-full bg-gradient-to-b from-[#230E40] via-[#481B7E] via-[#200A40] to-[#190C38] text-white pt-3 sm:pt-4 pb-0 md:pb-8"
+        id="panduan-permainan"
+        className="scroll-mt-24 relative z-20 w-full bg-gradient-to-b from-[#230E40] via-[#481B7E] via-[#200A40] to-[#190C38] text-white pt-3 sm:pt-4 pb-0 md:pb-8"
         style={{
           background: "linear-gradient(to bottom, #230E40 0%, #481B7E 25%, #200A40 60%, #190C38 85%, #190C38 100%)",
         }}
@@ -501,7 +527,7 @@ export default function PanduanBermain() {
                   <img
                     src={map.src}
                     alt={`Map ${map.badge}`}
-                    className="w-full h-24 sm:h-36 md:h-48 lg:h-52 object-cover pixel-art-crisp"
+                    className="w-full h-auto object-contain block pixel-art-crisp select-none"
                   />
                 </div>
               </div>

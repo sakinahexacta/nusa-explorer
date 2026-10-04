@@ -1,11 +1,41 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Play, ClipboardList } from "lucide-react";
 
 export default function Hero() {
+  // Support smooth scroll to #hero-game or #play-game when arriving with hash
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window !== "undefined") {
+        const hash = window.location.hash;
+        if (hash === "#hero-game" || hash === "#play-game" || hash === "#beranda") {
+          const el = document.getElementById("hero-game");
+          if (el) {
+            setTimeout(() => {
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 100);
+          }
+        }
+      }
+    };
+
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
   return (
-    <section id="beranda" className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-center items-center pt-20 sm:pt-24 pb-24 sm:pb-32 md:pb-36 overflow-hidden">
+    <section
+      id="hero-game"
+      className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-center items-center pt-20 sm:pt-24 pb-24 sm:pb-32 md:pb-36 overflow-hidden scroll-mt-20"
+    >
+      {/* Target anchor aliases */}
+      <span id="beranda" className="sr-only" />
+      <span id="play-game" className="sr-only" />
+
       {/* Background Pixel Art Map */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -38,7 +68,7 @@ export default function Hero() {
         </p>
 
         {/* Action CTA Buttons with Solid Retro Pixel Game Shadow */}
-        <div className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-3 sm:gap-5">
+        <div id="game-cta-buttons" className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-3 sm:gap-5">
           {/* Primary Blue Button */}
           <Link
             href="/panduan"
@@ -70,4 +100,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+}

@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Copyright } from "lucide-react";
 import NusaLogo from "./NusaLogo";
 
@@ -9,6 +12,38 @@ interface FooterProps {
 }
 
 export default function Footer({ className = "", transparent = false }: FooterProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleSmoothScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetPath: string,
+    targetHash?: string
+  ) => {
+    if (!targetHash) {
+      if (pathname === targetPath) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+
+    e.preventDefault();
+    const isCurrentPage = pathname === targetPath;
+
+    if (isCurrentPage) {
+      const element = document.getElementById(targetHash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", `${targetPath}#${targetHash}`);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } else {
+      router.push(`${targetPath}#${targetHash}`);
+    }
+  };
+
   return (
     <footer
       className={`relative z-20 text-white pt-10 sm:pt-14 pb-8 sm:pb-10 ${
@@ -36,12 +71,14 @@ export default function Footer({ className = "", transparent = false }: FooterPr
             <div className="flex flex-col items-start space-y-2 sm:space-y-3 text-left">
               <Link
                 href="/"
+                onClick={(e) => handleSmoothScroll(e, "/")}
                 className="text-sm sm:text-[14px] font-semibold text-white hover:text-purple-300 transition-colors text-left"
               >
                 Beranda
               </Link>
               <Link
-                href="/panduan"
+                href="/#hero-game"
+                onClick={(e) => handleSmoothScroll(e, "/", "hero-game")}
                 className="text-xs sm:text-[12px] text-gray-300 hover:text-white transition-colors font-normal text-left"
               >
                 Permainan
@@ -63,13 +100,13 @@ export default function Footer({ className = "", transparent = false }: FooterPr
                 IPAS
               </Link>
               <Link
-                href="/materi"
+                href="/materi/matematika"
                 className="text-xs sm:text-[12px] text-gray-300 hover:text-white transition-colors font-normal text-left"
               >
                 Matematika
               </Link>
               <Link
-                href="/materi"
+                href="/materi/inggris"
                 className="text-xs sm:text-[12px] text-gray-300 hover:text-white transition-colors font-normal text-left"
               >
                 Bahasa Inggris
@@ -80,27 +117,31 @@ export default function Footer({ className = "", transparent = false }: FooterPr
             <div className="flex flex-col items-start space-y-2 sm:space-y-3 text-left">
               <Link
                 href="/panduan"
+                onClick={(e) => handleSmoothScroll(e, "/panduan")}
                 className="text-sm sm:text-[14px] font-semibold text-white hover:text-purple-300 transition-colors text-left"
               >
                 Panduan Bermain
               </Link>
               <Link
-                href="/panduan"
+                href="/panduan#petunjuk"
+                onClick={(e) => handleSmoothScroll(e, "/panduan", "petunjuk")}
                 className="text-xs sm:text-[12px] text-gray-300 hover:text-white transition-colors font-normal text-left"
               >
                 Petunjuk
               </Link>
               <Link
-                href="/panduan"
+                href="/panduan#control-permainan"
+                onClick={(e) => handleSmoothScroll(e, "/panduan", "control-permainan")}
                 className="text-xs sm:text-[12px] text-gray-300 hover:text-white transition-colors font-normal text-left"
               >
                 Control Permainan
               </Link>
               <Link
-                href="/panduan"
+                href="/panduan#panduan-permainan"
+                onClick={(e) => handleSmoothScroll(e, "/panduan", "panduan-permainan")}
                 className="text-xs sm:text-[12px] text-gray-300 hover:text-white transition-colors font-normal text-left"
               >
-                Guide Permainan
+                Panduan Permainan
               </Link>
             </div>
           </div>

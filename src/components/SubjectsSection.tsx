@@ -21,14 +21,14 @@ const subjects: SubjectItem[] = [
     title: "MATEMATIKA",
     description:
       "Ilmu tentang bilangan, hubungan antar-bilangan, dan prosedur operasional",
-    href: "/materi",
+    href: "/materi/matematika",
   },
   {
     id: "bahasa-inggris",
     title: "BAHASA INGGRIS",
     description:
       "Mata pelajaran Bahasa Inggris yang mudah dan menyenangkan",
-    href: "/materi",
+    href: "/materi/inggris",
   },
 ];
 
