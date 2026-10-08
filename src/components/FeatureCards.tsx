@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { BookOpen, Gamepad2, Award, TrendingUp } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface FeatureItem {
   id: number;
@@ -39,10 +42,21 @@ export default function FeatureCards() {
   return (
     <div className="relative z-20 -mt-8 sm:-mt-12 md:-mt-20 max-w-7xl mx-auto px-4 pb-12 sm:pb-16">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-7">
-        {features.map((feature) => (
-          <div
+        {features.map((feature, idx) => (
+          <motion.div
             key={feature.id}
-            className="group relative bg-gradient-to-b from-[#6D28D9] via-[#4C1D95] to-[#2E1065] text-white rounded-2xl sm:rounded-3xl p-3.5 sm:px-6 py-5 sm:py-8 md:py-10 min-h-[170px] sm:min-h-[220px] md:min-h-[260px] flex flex-col items-center justify-center text-center shadow-[0_6px_0_#2E1065] sm:shadow-[0_8px_0_#2E1065] border border-purple-400/20 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_0_#1E0B45]"
+            initial={{ opacity: 0, y: 24, scale: 0.92 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{
+              delay: idx * 0.08,
+              duration: 0.42,
+              type: "spring",
+              stiffness: 180,
+              damping: 15,
+            }}
+            whileHover={{ y: -6, scale: 1.02 }}
+            className="group relative bg-gradient-to-b from-[#6D28D9] via-[#4C1D95] to-[#2E1065] text-white rounded-2xl sm:rounded-3xl p-3.5 sm:px-6 py-5 sm:py-8 md:py-10 min-h-[170px] sm:min-h-[220px] md:min-h-[260px] flex flex-col items-center justify-center text-center shadow-[0_6px_0_#2E1065] sm:shadow-[0_8px_0_#2E1065] border border-purple-400/20 transition-colors duration-200 cursor-default select-none"
           >
             {/* Pure Floating Icon */}
             <div className="mb-2 sm:mb-4 text-white flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
@@ -58,7 +72,7 @@ export default function FeatureCards() {
             <p className="text-purple-100/90 text-[10px] sm:text-xs md:text-[13px] leading-tight sm:leading-relaxed font-normal text-center">
               {feature.description}
             </p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

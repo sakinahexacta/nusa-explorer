@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface SubjectItem {
   id: string;
@@ -37,20 +40,42 @@ export default function SubjectsSection() {
     <section id="materi" className="relative z-20 pb-16 md:pb-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Title with decorative horizontal divider lines */}
-        <div className="flex items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-10"
+        >
           <div className="h-[2px] bg-purple-900/20 flex-1 max-w-[80px] sm:max-w-xs" />
           <h2 className="text-slate-900 font-extrabold text-sm sm:text-lg md:text-xl tracking-tight text-center whitespace-nowrap">
             Apa yang dipelajari?
           </h2>
           <div className="h-[2px] bg-purple-900/20 flex-1 max-w-[80px] sm:max-w-xs" />
-        </div>
+        </motion.div>
 
         {/* Solid Deep Purple Container Card */}
-        <div className="bg-[#4C1D95] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/25">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45, type: "spring", stiffness: 160, damping: 16 }}
+          className="bg-[#4C1D95] rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl border border-purple-400/25"
+        >
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20">
             {subjects.map((subject, index) => (
-              <div
+              <motion.div
                 key={subject.id}
+                initial={{ opacity: 0, y: 18, scale: 0.94 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  delay: index * 0.1,
+                  duration: 0.45,
+                  type: "spring",
+                  stiffness: 180,
+                  damping: 16,
+                }}
                 className={`flex flex-col items-center text-center px-3 sm:px-6 py-6 md:py-4 ${
                   index !== 0 ? "pt-7 md:pt-4" : ""
                 }`}
@@ -66,16 +91,23 @@ export default function SubjectsSection() {
                 </p>
 
                 {/* Light Blue Pill Button with Dark Purple Text, Font Normal */}
-                <Link
-                  href={subject.href}
-                  className="w-full max-w-[260px] sm:max-w-xs block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-normal font-poppins text-xs sm:text-sm py-2.5 sm:py-3 px-6 rounded-full shadow-md transition-all duration-200 hover:scale-105 active:scale-95 text-center cursor-pointer select-none touch-manipulation"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  className="w-full max-w-[260px] sm:max-w-xs"
                 >
-                  Mulai Belajar
-                </Link>
-              </div>
+                  <Link
+                    href={subject.href}
+                    className="w-full block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-normal font-poppins text-xs sm:text-sm py-2.5 sm:py-3 px-6 rounded-full shadow-md transition-colors duration-200 text-center cursor-pointer select-none touch-manipulation"
+                  >
+                    Mulai Belajar
+                  </Link>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

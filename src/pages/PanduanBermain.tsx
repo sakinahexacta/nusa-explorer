@@ -2,8 +2,8 @@
 
 import React, { useEffect } from "react";
 import { Play } from "lucide-react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { motion } from "framer-motion";
 
 interface StepCard {
   number: number;
@@ -72,9 +72,6 @@ export default function PanduanBermain() {
 
   return (
     <div className="w-full min-h-screen bg-white relative overflow-x-hidden p-0 m-0 text-slate-900 flex flex-col selection:bg-purple-600 selection:text-white">
-      {/* Global Navbar */}
-      <Navbar />
-
       {/* 1. Hero Section dengan Background Wave Vector ungu.png & 4 Step Cards */}
       <div id="petunjuk" className="relative z-20 w-full overflow-visible scroll-mt-20">
         {/* Rendering Wave Image: Mobile h-[330px] sm:h-[380px] (identik Materi.tsx), Desktop min-h-[560px] */}
@@ -140,17 +137,33 @@ export default function PanduanBermain() {
         {/* Konten Hero DESKTOP (md ke atas): Title & 4 Cards Melayang Horizontal di atas Wave - Sama Persis Orisinal */}
         <div className="hidden md:flex absolute inset-0 z-20 flex-col items-center pt-24 sm:pt-28 md:pt-36 px-4 sm:px-6 pointer-events-auto">
           <div className="max-w-6xl w-full mx-auto flex flex-col items-center">
-            {/* Title: PANDUAN BERMAIN Desktop */}
-            <h1 className="font-pixel text-2xl sm:text-3xl md:text-4xl text-white font-black tracking-widest text-center pixel-text-shadow leading-tight select-none mt-6 pt-8 mb-6">
+            {/* Title: PANDUAN BERMAIN Desktop (Pop bounce scale) */}
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.8, y: -15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 280, damping: 16, delay: 0.08 }}
+              className="font-pixel text-2xl sm:text-3xl md:text-4xl text-white font-black tracking-widest text-center pixel-text-shadow leading-tight select-none mt-6 pt-8 mb-6"
+            >
               PANDUAN BERMAIN
-            </h1>
+            </motion.h1>
 
             {/* 4 Cards Grid Desktop: 4 Kolom Horizontal */}
             <div className="w-full grid grid-cols-4 gap-6 mt-16 sm:mt-20 md:mt-24 mb-2 sm:mb-4 relative z-20">
-              {steps.map((step) => (
-                <div
+              {steps.map((step, idx) => (
+                <motion.div
                   key={step.number}
-                  className="group relative overflow-visible bg-gradient-to-b from-[#6D28D9] via-[#4C1D95] to-[#2E1065] text-white rounded-3xl p-3.5 sm:p-4 md:p-5 pt-4 sm:pt-5 h-[210px] sm:h-[220px] md:h-[230px] shadow-[0_8px_0_#190C38] border border-purple-400/20 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_0_#190C38] flex flex-col items-center justify-start text-center"
+                  initial={{ opacity: 0, y: 25, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    delay: idx * 0.1,
+                    duration: 0.45,
+                    type: "spring",
+                    stiffness: 140,
+                    damping: 16,
+                  }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  className="group relative overflow-visible bg-gradient-to-b from-[#6D28D9] via-[#4C1D95] to-[#2E1065] text-white rounded-3xl p-3.5 sm:p-4 md:p-5 pt-4 sm:pt-5 h-[210px] sm:h-[220px] md:h-[230px] shadow-[0_8px_0_#190C38] border border-purple-400/20 transition-colors duration-200 cursor-default select-none flex flex-col items-center justify-start text-center"
                 >
                   {/* Lingkaran badge nomor */}
                   <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#A855F7] text-white font-pixel font-bold text-lg sm:text-xl flex items-center justify-center absolute -top-4 -left-3 shadow-lg z-10 select-none">
@@ -168,7 +181,7 @@ export default function PanduanBermain() {
                   <p className="text-white/95 text-[11px] sm:text-xs leading-relaxed font-normal text-center mt-3 sm:mt-4 px-1">
                     {step.description}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -177,9 +190,14 @@ export default function PanduanBermain() {
         {/* Konten Hero MOBILE (< md): Title di atas Wave Bersih (Samakan Materi.tsx) */}
         <div className="block md:hidden absolute inset-0 z-20 flex flex-col items-center pt-16 sm:pt-20 px-4 pointer-events-none">
           <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto mt-0.5">
-            <h1 className="font-pixel text-xl sm:text-2xl text-white font-black tracking-wider text-center pixel-text-shadow leading-tight select-none mt-1 pt-0 mb-2 uppercase">
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.8, y: -15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 280, damping: 16, delay: 0.08 }}
+              className="font-pixel text-xl sm:text-2xl text-white font-black tracking-wider text-center pixel-text-shadow leading-tight select-none mt-1 pt-0 mb-2 uppercase"
+            >
               PANDUAN BERMAIN
-            </h1>
+            </motion.h1>
           </div>
         </div>
       </div>
@@ -189,10 +207,21 @@ export default function PanduanBermain() {
         <div className="max-w-6xl w-full mx-auto">
           {/* 4 Cards Grid KHUSUS MOBILE: 2 Kolom (grid-cols-2) dengan gap vertikal lega agar Card 3 & 4 tidak mepet */}
           <div className="block md:hidden w-full grid grid-cols-2 gap-x-3.5 sm:gap-x-4.5 gap-y-8 sm:gap-y-10 pt-2 sm:pt-4 mb-8 sm:mb-10">
-            {steps.map((step) => (
-              <div
+            {steps.map((step, idx) => (
+              <motion.div
                 key={step.number}
-                className={`group relative overflow-visible bg-gradient-to-b from-[#6D28D9] via-[#4C1D95] to-[#2E1065] text-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 pt-4 sm:pt-5 min-h-[175px] sm:min-h-[195px] shadow-[0_6px_0_#190C38] sm:shadow-[0_8px_0_#190C38] border border-purple-400/20 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_10px_0_#190C38] flex flex-col items-center justify-start text-center ${
+                initial={{ opacity: 0, y: 25, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  delay: idx * 0.1,
+                  duration: 0.45,
+                  type: "spring",
+                  stiffness: 140,
+                  damping: 16,
+                }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className={`group relative overflow-visible bg-gradient-to-b from-[#6D28D9] via-[#4C1D95] to-[#2E1065] text-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 pt-4 sm:pt-5 min-h-[175px] sm:min-h-[195px] shadow-[0_6px_0_#190C38] sm:shadow-[0_8px_0_#190C38] border border-purple-400/20 transition-colors duration-200 cursor-default select-none flex flex-col items-center justify-start text-center ${
                   step.number > 2 ? "mt-1 sm:mt-2" : ""
                 }`}
               >
@@ -212,7 +241,7 @@ export default function PanduanBermain() {
                 <p className="text-white/95 text-[10px] sm:text-xs leading-relaxed font-normal text-center mt-1.5 sm:mt-2 px-0.5 sm:px-1">
                   {step.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -512,10 +541,24 @@ export default function PanduanBermain() {
             </div>
           </div>
 
-          {/* 6 Map Cards Grid: 2 Kolom di Mobile (grid-cols-2), 3 Kolom di Desktop (md:grid-cols-3) - Gap Rapat Proporsional ke Footer di Mobile */}
+          {/* 6 Map Cards Grid: 2 Kolom di Mobile (grid-cols-2), 3 Kolom di Desktop (md:grid-cols-3) - Staggered In-View Animation */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-6 md:gap-8 lg:gap-10 mb-2 sm:mb-4 md:mb-20 lg:mb-24 relative z-10">
             {maps.map((map, index) => (
-              <div key={index} className="flex flex-col items-center group">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 25, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  delay: index * 0.08,
+                  duration: 0.45,
+                  type: "spring",
+                  stiffness: 140,
+                  damping: 16,
+                }}
+                whileHover={{ y: -6 }}
+                className="flex flex-col items-center group cursor-default"
+              >
                 {/* White Badge Pill */}
                 <div className="w-full bg-white text-[#190C38] font-black text-xs sm:text-sm md:text-base py-1 sm:py-2 md:py-2.5 px-2 sm:px-4 md:px-6 rounded-lg sm:rounded-xl md:rounded-2xl text-center shadow-md mb-2 sm:mb-3 md:mb-3.5 tracking-wide select-none group-hover:bg-purple-100 transition-colors">
                   {map.badge}
@@ -530,7 +573,7 @@ export default function PanduanBermain() {
                     className="w-full h-auto object-contain block pixel-art-crisp select-none"
                   />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { ChevronRight, DoorOpen } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import "katex/dist/katex.min.css";
 import katex from "katex";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AnalogiPizza from "@/components/AnalogiPizza";
 
 export interface ChapterData {
   chapterNumber?: number;
@@ -487,35 +489,47 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
 
   return (
     <div className="w-full min-h-screen bg-white relative p-0 m-0 text-slate-900 flex flex-col selection:bg-purple-600 selection:text-white">
-      {/* 1. Global Navbar: Langsung berwarna ungu pekat bg-[#190C38] */}
-      <Navbar forceSolid={true} />
-
       {/* Main Content Area: Padding top mendekati Navbar */}
       <main className="relative flex-1 w-full pt-[64px] sm:pt-[70px] md:pt-[78px] pb-6 sm:pb-8 md:pb-24">
         {/* 1. Tab Mata Pelajaran (Mobile: Kiri Atas Overlap Hero Banner | Desktop: Posisi Sisi Kiri Layar Penuh) */}
         <div className="absolute left-0 top-[88px] sm:top-[100px] md:top-[140px] lg:top-[160px] z-30 flex flex-col gap-2 sm:gap-2.5 md:gap-4">
-          {(["IPA", "MTK", "B.ING"] as const).map((subject) => {
+          {(["IPA", "MTK", "B.ING"] as const).map((subject, idx) => {
             const isActive = selectedSubject === subject;
             const displayLabel = subject === "IPA" ? "IPAS" : subject;
             return (
-              <button
+              <motion.button
                 key={subject}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.08 + idx * 0.08, type: "spring", stiffness: 350, damping: 22 }}
+                whileHover={{ scale: 1.08, x: 6 }}
+                whileTap={{ scale: 0.94 }}
                 onClick={() => handleSelectSubject(subject)}
-                className={`font-pixel font-bold text-xs sm:text-[13px] md:text-sm lg:text-base py-2.5 sm:py-3 md:py-4 lg:py-5 px-4 sm:px-5 md:px-7 lg:px-9 rounded-r-full rounded-l-none transition-all duration-200 shadow-md md:shadow-2xl cursor-pointer select-none tracking-wider uppercase text-left ${isActive
-                  ? "bg-[#7B2CBF] text-white shadow-[0_2px_12px_rgba(123,44,191,0.5)] md:shadow-[0_4px_24px_rgba(123,44,191,0.7)] scale-105 origin-left"
-                  : "bg-white text-[#7B2CBF] border-y-2 border-r-2 border-[#7B2CBF] hover:bg-purple-50 hover:scale-102 origin-left"
+                className={`font-pixel font-bold text-xs sm:text-[13px] md:text-sm lg:text-base py-2.5 sm:py-3 md:py-4 lg:py-5 px-4 sm:px-5 md:px-7 lg:px-9 rounded-r-full rounded-l-none transition-colors duration-200 shadow-md md:shadow-2xl cursor-pointer select-none tracking-wider uppercase text-left ${isActive
+                  ? "bg-[#7B2CBF] text-white shadow-[0_2px_12px_rgba(123,44,191,0.5)] md:shadow-[0_4px_24px_rgba(123,44,191,0.7)] origin-left"
+                  : "bg-white text-[#7B2CBF] border-y-2 border-r-2 border-[#7B2CBF] hover:bg-purple-50 origin-left"
                   }`}
                 title={`Mata Pelajaran ${displayLabel}`}
               >
                 {displayLabel}
-              </button>
+              </motion.button>
             );
           })}
         </div>
 
-        <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-[48px] relative">
-          {/* 2. Banner Hero (Top Section) */}
-          <section className="relative w-full mt-1 sm:mt-2 mb-0 md:mb-3">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-[48px] relative"
+        >
+          {/* 2. Banner Hero (Top Section) - Background banner transisi fade murni tanpa pergerakan posisi */}
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="relative w-full mt-1 sm:mt-2 mb-0 md:mb-3"
+          >
             {/* Hero Banner Container Bersih: Sudut bawah flat/tajam di mobile agar menyatu mulus dengan container materi */}
             <div className="relative rounded-t-2xl sm:rounded-t-3xl rounded-b-none md:rounded-b-3xl md:rounded-3xl overflow-hidden shadow-md sm:shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -526,61 +540,100 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
               />
             </div>
 
+            {/* Tombol Pintu Keluar / Kembali ke Halaman Materi Utama di Pojok Kanan Atas (Warna Ungu Khas Aplikasi) */}
+            <motion.div
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              transition={{ type: "spring", stiffness: 400, damping: 18 }}
+              className="absolute right-2.5 sm:right-4 md:right-4 top-2.5 sm:top-3.5 z-40"
+            >
+              <Link
+                href="/materi"
+                title="Kembali ke Daftar Materi"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#7B2CBF] hover:bg-[#6c28d9] active:scale-95 text-white shadow-md md:shadow-xl transition-colors duration-200 group select-none cursor-pointer border border-white/30"
+              >
+                <DoorOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] text-white" />
+                <span className="font-poppins font-bold text-xs sm:text-sm text-white tracking-wide">
+                  Kembali
+                </span>
+              </Link>
+            </motion.div>
+
             {/* 3. Tombol Panah Ungu Bulat di Kanan: Berada di kanan banner */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.15, rotate: 6 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
               onClick={handleNextChapter}
               title="Bab Selanjutnya"
-              className="absolute right-1.5 sm:right-2.5 md:right-0 md:translate-x-1/2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#7B2CBF] hover:bg-[#6c28d9] active:scale-95 text-white flex items-center justify-center shadow-lg md:shadow-2xl transition-all duration-200 hover:scale-110 cursor-pointer"
+              className="absolute right-1.5 sm:right-2.5 md:right-0 md:translate-x-1/2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#7B2CBF] hover:bg-[#6c28d9] text-white flex items-center justify-center shadow-lg md:shadow-2xl transition-colors duration-200 cursor-pointer"
             >
               <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 stroke-[3]" />
-            </button>
-          </section>
+            </motion.button>
+          </motion.section>
 
           {/* 4. Interactive Chapter Tab Navigator */}
           {/* DESKTOP TABS (hidden md:flex): Ukuran Orisinal Desktop */}
           <div className="hidden md:flex relative items-end justify-start gap-1.5 sm:gap-2.5 md:gap-3 px-5 sm:px-8 md:px-10 -mt-36 sm:-mt-40 md:-mt-44 -mb-1">
-            {chapterKeys.map((num) => {
+            {chapterKeys.map((num, idx) => {
               const isActive = activeChapter === num;
               return (
-                <button
+                <motion.button
                   key={num}
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.12 + idx * 0.05, type: "spring", stiffness: 350, damping: 22 }}
+                  whileHover={{ y: isActive ? 0 : -4, scale: 1.05 }}
+                  whileTap={{ scale: 0.94 }}
                   onClick={() => setActiveChapter(num)}
-                  className={`font-poppins font-bold cursor-pointer transition-all duration-300 ease-in-out select-none transform rounded-t-xl sm:rounded-t-2xl rounded-b-none px-6 sm:px-9 md:px-10 pt-3.5 sm:pt-4 md:pt-5 pb-5 sm:pb-6 md:pb-7 text-2xl sm:text-3xl md:text-4xl text-center bg-[#3B1778] shadow-none ${isActive
+                  className={`font-poppins font-bold cursor-pointer transition-colors duration-200 select-none transform rounded-t-xl sm:rounded-t-2xl rounded-b-none px-6 sm:px-9 md:px-10 pt-3.5 sm:pt-4 md:pt-5 pb-5 sm:pb-6 md:pb-7 text-2xl sm:text-3xl md:text-4xl text-center bg-[#3B1778] shadow-none ${isActive
                     ? "translate-y-0 z-20 text-white"
-                    : "translate-y-6 sm:translate-y-7 md:translate-y-8 z-0 text-purple-200/70 hover:text-white hover:translate-y-3 sm:hover:translate-y-4"
+                    : "translate-y-6 sm:translate-y-7 md:translate-y-8 z-0 text-purple-200/70 hover:text-white"
                     }`}
                   title={`Bab ${num}`}
                 >
                   {num}
-                </button>
+                </motion.button>
               );
             })}
           </div>
 
-          {/* MOBILE TABS (flex md:hidden): Arched Folder Tabs di Atas Container Ungu Sesuai Tampilan Desktop */}
+          {/* MOBILE TABS (flex md:hidden): Arched Folder Tabs di Atas Container Ungu */}
           <div className="flex md:hidden relative items-end justify-start gap-1 sm:gap-2 px-3 sm:px-5 -mt-16 sm:-mt-20 -mb-[2px] z-20">
-            {chapterKeys.map((num) => {
+            {chapterKeys.map((num, idx) => {
               const isActive = activeChapter === num;
               return (
-                <button
+                <motion.button
                   key={num}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.12 + idx * 0.05, type: "spring", stiffness: 350, damping: 22 }}
+                  whileHover={{ y: isActive ? 0 : -2, scale: 1.06 }}
+                  whileTap={{ scale: 0.92 }}
                   onClick={() => setActiveChapter(num)}
-                  className={`font-poppins font-bold cursor-pointer transition-all duration-300 ease-in-out select-none transform rounded-t-xl sm:rounded-t-2xl rounded-b-none px-3.5 sm:px-5 pt-2.5 sm:pt-3.5 text-base sm:text-lg min-w-[42px] sm:min-w-[48px] text-center border-b-0 outline-none bg-[#3B1778] ${isActive
+                  className={`font-poppins font-bold cursor-pointer transition-colors duration-200 select-none transform rounded-t-xl sm:rounded-t-2xl rounded-b-none px-3.5 sm:px-5 pt-2.5 sm:pt-3.5 text-base sm:text-lg min-w-[42px] sm:min-w-[48px] text-center border-b-0 outline-none bg-[#3B1778] ${isActive
                     ? "translate-y-0 z-20 text-white pb-4 sm:pb-5 shadow-none"
                     : "translate-y-2.5 sm:translate-y-3 z-0 text-purple-200/60 hover:text-white pb-2 sm:pb-2.5"
                     }`}
                   title={`Bab ${num}`}
                 >
                   {num}
-                </button>
+                </motion.button>
               );
             })}
           </div>
 
           {/* Container Utama Materi (Gradasi Ungu Vertikal Sesuai 4 Card Homepage & Shadow 2xl Melayang Overlap relative z-10) */}
           <div className="relative z-10 w-full bg-gradient-to-b from-[#3B1778] via-[#2A0D5A] to-[#190C38] text-white rounded-2xl sm:rounded-3xl px-4 pt-7 pb-8 sm:px-7 sm:pt-9 sm:pb-10 md:p-10 shadow-2xl">
-            <div key={`${selectedSubject}-${activeChapter}`} className="animate-slide-up-solid">
-              {/* a. Judul Bab paling atas */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${selectedSubject}-${activeChapter}`}
+                initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.99 }}
+                transition={{ duration: 0.4, type: "spring", stiffness: 180, damping: 18 }}
+              >
+                {/* a. Judul Bab paling atas */}
               <h2 className="font-poppins text-xl sm:text-2xl md:text-4xl font-bold text-white mb-3 sm:mb-4 md:mb-6 tracking-tight leading-snug text-left">
                 {currentChapter?.title || "Materi Pembelajaran"}
               </h2>
@@ -594,16 +647,18 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
                   </p>
                 </div>
 
-                {/* Kolom Kanan: Frame Gambar Diagram Bersih & Proporsional Diperbesar */}
+                {/* Kolom Kanan: Frame Gambar Modul/Materi Melebar Penuh & Scrollable */}
                 {currentChapter?.diagramImage && (
                   <div className="w-full flex justify-center items-center">
-                    <div className="w-full bg-white rounded-2xl p-3 md:p-4 lg:p-5 shadow-xl overflow-hidden flex items-center justify-center">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={currentChapter.diagramImage}
-                        alt={currentChapter?.title || "Diagram Materi"}
-                        className="w-full h-auto max-h-[340px] lg:max-h-[420px] object-contain rounded-xl select-none block"
-                      />
+                    <div className="w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-white/20">
+                      <div className="w-full max-h-[500px] overflow-y-auto overflow-x-hidden custom-scrollbar touch-pan-y overscroll-contain">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={currentChapter.diagramImage}
+                          alt={currentChapter?.title || "Diagram Materi"}
+                          className="w-full h-auto block select-none"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -618,16 +673,18 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
                   </p>
                 )}
 
-                {/* b. Gambar Diagram di Bawah Paragraf (Centered) */}
+                {/* b. Gambar Modul/Materi Melebar Penuh & Scrollable Vertikal (Tinggi Ringkas & Konsisten) */}
                 {currentChapter?.diagramImage && (
                   <div className="w-full flex justify-center">
-                    <div className="w-full max-w-[290px] sm:max-w-[360px] bg-white rounded-xl p-2 sm:p-2.5 shadow-md overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={currentChapter.diagramImage}
-                        alt={currentChapter?.title || "Diagram Materi"}
-                        className="w-full h-auto object-contain rounded-lg select-none mx-auto block"
-                      />
+                    <div className="w-full max-w-md bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-white/20">
+                      <div className="w-full max-h-[260px] sm:max-h-[280px] overflow-y-auto overflow-x-hidden custom-scrollbar touch-pan-y overscroll-contain">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={currentChapter.diagramImage}
+                          alt={currentChapter?.title || "Diagram Materi"}
+                          className="w-full h-auto block select-none"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -783,12 +840,39 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
                       )}
                   </div>
                 )}
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* 5. Container Analogi: Di Bawah Container Utama dan di Atas Footer */}
-          {(currentChapter?.analogyTitle || currentChapter?.analogyText) && (
-            <div className="mt-8 sm:mt-10 md:mt-16 w-full">
+          {selectedSubject === "MTK" && activeChapter === 1 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.1, type: "spring", stiffness: 140, damping: 16 }}
+              className="mt-8 sm:mt-10 md:mt-16 w-full"
+            >
+              {/* Header Analogi dengan Icon Bohlam 💡 */}
+              <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 md:mb-5">
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+                <h3 className="font-poppins text-sm sm:text-base md:text-2xl font-bold text-slate-900 text-center leading-snug">
+                  {currentChapter?.analogyTitle || "Analogi Potongan Pizza"}
+                </h3>
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+              </div>
+              <AnalogiPizza />
+            </motion.div>
+          ) : (currentChapter?.analogyTitle || currentChapter?.analogyText) ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.1, type: "spring", stiffness: 140, damping: 16 }}
+              className="mt-8 sm:mt-10 md:mt-16 w-full"
+            >
               {/* Header Analogi dengan Icon Bohlam 💡 */}
               {currentChapter?.analogyTitle && (
                 <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 md:mb-5">
@@ -804,16 +888,16 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
               {currentChapter?.analogyText && (
                 <div
                   key={`analogy-${selectedSubject}-${activeChapter}`}
-                  className="w-full bg-[#5B2E9D] text-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 shadow-xl md:shadow-2xl text-center mb-6 sm:mb-8 md:mb-16 animate-slide-up-solid"
+                  className="w-full bg-[#5B2E9D] text-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 shadow-xl md:shadow-2xl text-center mb-6 sm:mb-8 md:mb-16"
                 >
                   <p className="font-poppins text-[10.5px] sm:text-xs md:text-[15px] leading-relaxed text-purple-100 font-normal text-justify sm:text-center">
                     {currentChapter.analogyText}
                   </p>
                 </div>
               )}
-            </div>
-          )}
-        </div>
+            </motion.div>
+          ) : null}
+        </motion.div>
       </main>
 
       {/* 6. Global Footer (Identik dengan Home Page) */}

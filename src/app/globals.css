@@ -164,5 +164,28 @@ nextjs-portal,
   color: #ffffff !important;
 }
 
+/* Custom slim and smooth scrollbar for scrollable image containers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #7B2CBF;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #5B2E9D;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #7B2CBF #f1f5f9;
+  -webkit-overflow-scrolling: touch;
+}
+
+
 
 

@@ -29,6 +29,9 @@ const poppins = Poppins({
   display: "swap",
 });
 
+import Navbar from "@/components/Navbar";
+import PageTransition from "@/components/PageTransition";
+
 export const metadata: Metadata = {
   title: "Nusa Explorer - Belajar Menyenangkan Dengan Bermain!",
   description:
@@ -52,7 +55,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-white text-slate-900 antialiased font-sans flex flex-col selection:bg-purple-500 selection:text-white">
-        {children}
+        {/* Navbar statis di luar container transisi halaman */}
+        <Navbar />
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

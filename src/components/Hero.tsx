@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Play, ClipboardList } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   // Support smooth scroll to #hero-game or #play-game when arriving with hash
@@ -52,41 +53,84 @@ export default function Hero() {
 
       {/* Hero Content (relative z-20, clickable and floating cleanly above wave) */}
       <div className="relative z-20 max-w-4xl mx-auto px-4 flex flex-col items-center text-center my-auto">
-        {/* Pixel Title: NUSA EXPLORER */}
-        <div className="flex flex-col items-center justify-center select-none">
+        {/* Pixel Title: NUSA EXPLORER (Pop/Bounce scale from 0.8 to 1) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: -15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 280,
+            damping: 16,
+            delay: 0.08,
+          }}
+          className="flex flex-col items-center justify-center select-none"
+        >
           <h1 className="font-pixel text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-widest font-black pixel-text-shadow leading-tight">
             NUSA
           </h1>
           <h1 className="font-pixel text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-widest font-black pixel-text-shadow leading-tight -mt-1 md:-mt-2">
             EXPLORER
           </h1>
-        </div>
+        </motion.div>
 
-        {/* Clean Subtitle text without box/pill */}
-        <p className="mt-3 sm:mt-4 md:mt-5 text-white text-xs sm:text-base md:text-xl font-bold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+        {/* Clean Subtitle text: Staggered fade-in & slide-up from bottom */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.22,
+            type: "spring",
+            stiffness: 180,
+            damping: 18,
+          }}
+          className="mt-3 sm:mt-4 md:mt-5 text-white text-xs sm:text-base md:text-xl font-bold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+        >
           Belajar menyenangkan dengan bermain!
-        </p>
+        </motion.p>
 
-        {/* Action CTA Buttons with Solid Retro Pixel Game Shadow */}
-        <div id="game-cta-buttons" className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-3 sm:gap-5">
-          {/* Primary Blue Button */}
-          <Link
-            href="/panduan"
-            className="flex items-center gap-2 bg-[#073294] hover:bg-[#052674] text-white font-black text-xs sm:text-base px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-xl border border-black/40 shadow-[0_4px_0_rgba(0,0,0,1)] sm:shadow-[0_6px_0_rgba(0,0,0,1)] hover:translate-y-[2px] active:translate-y-[4px] active:scale-95 active:opacity-85 active:shadow-none transition-all duration-150 ease-in-out cursor-pointer whitespace-nowrap touch-manipulation"
+        {/* Action CTA Buttons: Tombol statis (diam di tempat) dengan animasi masuk (entrance) dan efek hover standar */}
+        <motion.div
+          id="game-cta-buttons"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.35,
+            type: "spring",
+            stiffness: 180,
+            damping: 18,
+          }}
+          className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-3 sm:gap-5"
+        >
+          {/* Primary Blue Button - Statis diam di tempat, hanya hover & tap */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
-            <Play className="w-3.5 h-3.5 sm:w-5 sm:h-5 fill-white text-white" />
-            <span>Mulai Game</span>
-          </Link>
+            <Link
+              href="/panduan"
+              className="flex items-center gap-2 bg-[#073294] hover:bg-[#052674] text-white font-black text-xs sm:text-base px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-xl border border-black/40 shadow-[0_4px_0_rgba(0,0,0,1)] sm:shadow-[0_6px_0_rgba(0,0,0,1)] transition-colors cursor-pointer whitespace-nowrap touch-manipulation block"
+            >
+              <Play className="w-3.5 h-3.5 sm:w-5 sm:h-5 fill-white text-white" />
+              <span>Mulai Game</span>
+            </Link>
+          </motion.div>
 
-          {/* Secondary White Button */}
-          <Link
-            href="/panduan"
-            className="flex items-center gap-2 bg-white hover:bg-slate-50 text-[#073294] font-black text-xs sm:text-base px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-xl border border-black/40 shadow-[0_4px_0_rgba(0,0,0,1)] sm:shadow-[0_6px_0_rgba(0,0,0,1)] hover:translate-y-[2px] active:translate-y-[4px] active:scale-95 active:opacity-85 active:shadow-none transition-all duration-150 ease-in-out cursor-pointer whitespace-nowrap touch-manipulation"
+          {/* Secondary White Button - Statis diam di tempat, hanya hover & tap */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
-            <ClipboardList className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#073294]" strokeWidth={2.5} />
-            <span>Pelajari Game</span>
-          </Link>
-        </div>
+            <Link
+              href="/panduan"
+              className="flex items-center gap-2 bg-white hover:bg-slate-50 text-[#073294] font-black text-xs sm:text-base px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-xl border border-black/40 shadow-[0_4px_0_rgba(0,0,0,1)] sm:shadow-[0_6px_0_rgba(0,0,0,1)] transition-colors cursor-pointer whitespace-nowrap touch-manipulation block"
+            >
+              <ClipboardList className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#073294]" strokeWidth={2.5} />
+              <span>Pelajari Game</span>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Wave Divider with sharp vector SVG and exact offset positioning */}

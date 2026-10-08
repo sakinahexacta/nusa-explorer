@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { motion } from "framer-motion";
 
 interface SubjectCard {
   id: string;
@@ -43,9 +43,6 @@ export default function MateriPage() {
 
   return (
     <div className="w-full min-h-screen bg-white relative p-0 m-0 text-slate-900 flex flex-col selection:bg-purple-600 selection:text-white overflow-x-hidden">
-      {/* Global Navbar dengan Dynamic Scroll Background & Mobile Hamburger Menu */}
-      <Navbar />
-
       {/* 1. Hero Section: Background Wave Vector ungu.png Bersih (Clean Background Tanpa Lapisan Gradasi) */}
       <div className="relative z-20 w-full overflow-visible">
         {/* Rendering Wave Image Murni dengan Ketinggian Lebih Lega di Mobile (Wave terdorong aman di bawah teks) */}
@@ -109,16 +106,26 @@ export default function MateriPage() {
         <div className="absolute inset-0 z-20 flex flex-col items-center pt-16 sm:pt-20 md:pt-36 pb-8 sm:pb-10 md:pb-0 px-4 sm:px-6 pointer-events-none">
           {/* Konten Hero: Title & Subtitle - Rata Tengah (text-center) dengan jarak lega pas di atas wave putih */}
           <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto mt-0.5 sm:mt-1 md:mt-0">
-            {/* Title: MATERI (Kapital, pixel text, text-center) */}
-            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-1 sm:mt-2 md:mt-6 pt-0 sm:pt-1 md:pt-8 mb-1 sm:mb-1.5 md:mb-6 uppercase">
+            {/* Title: MATERI (Kapital, pixel text, pop bounce) */}
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.8, y: -15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 280, damping: 16, delay: 0.08 }}
+              className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-1 sm:mt-2 md:mt-6 pt-0 sm:pt-1 md:pt-8 mb-1 sm:mb-1.5 md:mb-6 uppercase"
+            >
               MATERI
-            </h1>
+            </motion.h1>
 
-            {/* Sub-teks (Rata Tengah, font lebih compact di mobile dengan padding samping) */}
-            <p className="text-white font-bold text-[11px] sm:text-sm md:text-base text-center max-w-[260px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-0.5 sm:mt-1 md:mt-4 mb-0 sm:mb-1 md:mb-6 px-4 sm:px-0 select-none">
+            {/* Sub-teks (Staggered slide-up) */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 180, damping: 18 }}
+              className="text-white font-bold text-[11px] sm:text-sm md:text-base text-center max-w-[260px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-0.5 sm:mt-1 md:mt-4 mb-0 sm:mb-1 md:mb-6 px-4 sm:px-0 select-none"
+            >
               Ayo mulai belajar IPAS, Matematika, dan Bahasa
               <br className="hidden sm:inline" /> Inggris bersama!
-            </p>
+            </motion.p>
           </div>
         </div>
       </div>
@@ -126,17 +133,26 @@ export default function MateriPage() {
       {/* 2. Main Content Area (Background Putih Polos Menyatu Penuh dari Bawah Wave hingga Footer) */}
       <main className="relative z-20 w-full bg-white text-slate-900 pb-16 sm:pb-24 flex-1">
         {/* Karakter SD Siswi Berhijab & Speech Bubble "Hai Explorer!" Berdiri Sejajar di Area Wave Putih */}
-        <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 -mt-28 sm:-mt-32 md:-mt-64 lg:-mt-72 md:-translate-y-[80px] mb-6 sm:mb-8 md:mb-12 pointer-events-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 25, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, type: "spring", stiffness: 150, damping: 18 }}
+          className="max-w-5xl mx-auto w-full px-4 sm:px-6 -mt-28 sm:-mt-32 md:-mt-64 lg:-mt-72 md:-translate-y-[80px] mb-6 sm:mb-8 md:mb-12 pointer-events-auto"
+        >
           <div className="flex flex-row items-center justify-center gap-2.5 sm:gap-6 md:gap-8">
             {/* Karakter Siswa SD Berpakaian Seragam SD */}
-            <div className="relative flex-shrink-0 select-none">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="relative flex-shrink-0 select-none cursor-default"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/karakter cewe.png"
                 alt="Karakter Siswi SD Berhijab"
-                className="w-16 sm:w-24 md:w-36 lg:w-44 h-auto object-contain drop-shadow-2xl pixel-art-crisp transition-transform duration-150 active:scale-95 touch-manipulation cursor-pointer"
+                className="w-16 sm:w-24 md:w-36 lg:w-44 h-auto object-contain drop-shadow-2xl pixel-art-crisp select-none cursor-default"
               />
-            </div>
+            </motion.div>
 
             {/* Speech Bubble Putih "Hai Explorer!" Sejajar di Sebelah Kanan Karakter */}
             <div className="relative bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 shadow-xl md:shadow-2xl border-2 border-purple-900/20 max-w-[220px] sm:max-w-md md:max-w-lg text-left transition-transform duration-150 active:scale-95 touch-manipulation">
@@ -151,15 +167,26 @@ export default function MateriPage() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* 3 Card Mata Pelajaran (IPAS, Matematika, B. Inggris): 1 Kolom Bertumpuk di Layar Mobile */}
+        {/* 3 Card Mata Pelajaran (IPAS, Matematika, B. Inggris): Staggered entrance */}
         <div className="max-w-5xl mx-auto px-5 sm:px-6 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {currentSubjects.map((item) => (
-              <div
+            {currentSubjects.map((item, index) => (
+              <motion.div
                 key={item.id}
-                className="group relative bg-[#38116E] rounded-3xl p-5 sm:p-6 shadow-xl border-2 border-purple-400/20 flex flex-col justify-between text-center transition-transform duration-150 ease-in-out hover:-translate-y-2 hover:border-purple-400/60 active:scale-95 touch-manipulation cursor-pointer"
+                initial={{ opacity: 0, y: 24, scale: 0.94 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  delay: index * 0.1,
+                  duration: 0.45,
+                  type: "spring",
+                  stiffness: 180,
+                  damping: 16,
+                }}
+                whileHover={{ y: -8 }}
+                className="group relative bg-[#38116E] rounded-3xl p-5 sm:p-6 shadow-xl border-2 border-purple-400/20 flex flex-col justify-between text-center transition-colors duration-200 hover:border-purple-400/60 touch-manipulation"
               >
                 {/* 1. Gambar Ilustrasi Pelajaran di Atas */}
                 <div className="w-full rounded-2xl overflow-hidden shadow-md border-2 border-white/20 mb-4 sm:mb-5 bg-purple-950/40">
@@ -180,20 +207,26 @@ export default function MateriPage() {
                   {item.description}
                 </p>
 
-                {/* 3. Tombol "Mulai Belajar" di Bagian Bawah dengan Feedback Sentuhan (active:scale-95) */}
-                <Link
-                  href={
-                    item.title === "IPAS"
-                      ? "/materi/ipas"
-                      : item.title === "MATEMATIKA"
-                      ? "/materi/matematika"
-                      : "/materi/inggris"
-                  }
-                  className="w-full block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-semibold font-poppins text-xs sm:text-base py-3 sm:py-3.5 px-6 rounded-2xl shadow-lg transition-transform duration-150 ease-in-out hover:scale-[1.02] active:scale-95 text-center cursor-pointer select-none touch-manipulation"
+                {/* 3. Tombol "Mulai Belajar" di Bagian Bawah dengan Feedback Sentuhan */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 >
-                  Mulai Belajar
-                </Link>
-              </div>
+                  <Link
+                    href={
+                      item.title === "IPAS"
+                        ? "/materi/ipas"
+                        : item.title === "MATEMATIKA"
+                        ? "/materi/matematika"
+                        : "/materi/inggris"
+                    }
+                    className="w-full block bg-[#7EB6FF] hover:bg-[#68A5F8] text-[#190C38] font-semibold font-poppins text-xs sm:text-base py-3 sm:py-3.5 px-6 rounded-2xl shadow-lg transition-colors duration-150 text-center cursor-pointer select-none touch-manipulation"
+                  >
+                    Mulai Belajar
+                  </Link>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
         </div>

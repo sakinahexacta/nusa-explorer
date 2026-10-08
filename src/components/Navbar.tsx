@@ -40,14 +40,15 @@ export default function Navbar({ forceSolid = false }: NavbarProps) {
   const isPanduan = pathname === "/panduan";
   const isMateri = pathname === "/materi" || pathname?.startsWith("/materi/");
   const isHome = pathname === "/";
-  const isSolid = forceSolid || isScrolled || isMobileMenuOpen;
+  const isDetailMateri = pathname?.startsWith("/materi/") && pathname !== "/materi";
+  const isSolid = forceSolid || isDetailMateri || isScrolled || isMobileMenuOpen;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 py-3.5 sm:py-4 ${
         isSolid
-          ? "bg-[#1e1045] shadow-md py-3"
-          : "bg-transparent py-4 md:py-5"
+          ? "bg-[#1e1045] shadow-md"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between">

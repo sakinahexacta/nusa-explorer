@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FeatureCards from "@/components/FeatureCards";
 import AboutSection from "@/components/AboutSection";
@@ -11,8 +10,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white flex flex-col selection:bg-purple-600 selection:text-white">
-      {/* 1. Navigation Bar (Top Bar) */}
-      <Navbar />
 
       {/* 2. Hero Section with Pixel Title, Buttons & Wave Divider */}
       <Hero />
