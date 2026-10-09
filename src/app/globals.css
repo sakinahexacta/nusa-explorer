@@ -53,8 +53,9 @@
 }
 
 .pixel-art-crisp {
-  image-rendering: pixelated;
+  image-rendering: -webkit-optimize-contrast;
   image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
 

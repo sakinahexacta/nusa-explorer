@@ -38,14 +38,18 @@ export default function Hero() {
       <span id="play-game" className="sr-only" />
 
       {/* Background Pixel Art Map */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <Image
           src="/images/hero-map.jpg"
           alt="Nusa Explorer World Map"
           fill
           priority
+          unoptimized
           sizes="100vw"
           className="object-cover object-center pixel-art-crisp brightness-[0.50] contrast-[1.05]"
+          style={{
+            imageRendering: "pixelated",
+          }}
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/40" />

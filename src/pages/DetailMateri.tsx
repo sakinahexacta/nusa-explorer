@@ -8,6 +8,9 @@ import "katex/dist/katex.min.css";
 import katex from "katex";
 import Footer from "@/components/Footer";
 import AnalogiPizza from "@/components/AnalogiPizza";
+import SimulatorDiskon from "@/components/SimulatorDiskon";
+import SimulatorSkala from "@/components/SimulatorSkala";
+import SimulatorTangga from "@/components/SimulatorTangga";
 
 export interface ChapterData {
   chapterNumber?: number;
@@ -242,9 +245,9 @@ export const matematikaChaptersData: Record<number, ChapterData> = {
       "Hitung potongan diskon: $10\\% \\times \\text{Rp}50.000 = \\frac{10}{100} \\times 50.000 = \\text{Rp}5.000$",
       "Hitung uang yang harus dibayar: $\\text{Rp}50.000 - \\text{Rp}5.000 = \\text{Rp}45.000$",
     ],
-    analogyTitle: "Analogi Sepotong Pizza",
+    analogyTitle: "Simulator Diskon Belanja Interaktif",
     analogyText:
-      "Bayangkan satu loyang pizza yang dipotong menjadi 2 bagian besar (kamu ambil 1 potong = 1/2), ukurannya sama persis kenyangnya dengan pizza yang dipotong 4 bagian lalu kamu makan 2 potong (2/4)!",
+      "Diskon seperti toko memberikan potongan sebagian dari harga barang belanjaanmu. Semakin besar persentase diskon yang kamu dapatkan, semakin murah uang yang perlu kamu bayar ke kasir!",
   },
   3: {
     chapterNumber: 3,
@@ -264,9 +267,9 @@ export const matematikaChaptersData: Record<number, ChapterData> = {
       "Jarak Sebenarnya (𝐽𝑆): 5 𝑐𝑚 × 1.000 = 5.000 𝑐𝑚",
       "Ubah sentimeter ke meter (dibagi 100): $\\frac{5.000}{100}$ = 50 meter",
     ],
-    analogyTitle: "Analogi Anak Tangga",
+    analogyTitle: "Simulator Denah & Skala Interaktif",
     analogyText:
-      "Pola bilangan seperti menaiki anak tangga: setiap kali melangkah naik 2 anak tangga sekaligus, posisimu akan selalu bertambah dengan ritme yang teratur: 2, 4, 6, 8, dan seterusnya!",
+      "Skala pada denah menghubungkan ukuran gambar di atas kertas dengan dunia nyata. Setiap 1 cm pada denah mewakili jarak nyata sebenarnya sesuai angka skalanya!",
   },
   4: {
     chapterNumber: 4,
@@ -286,9 +289,9 @@ export const matematikaChaptersData: Record<number, ChapterData> = {
       "Samakan satuan ukuran ke centimeter: 3 𝑚𝑒𝑡𝑒𝑟 = 3 × 100 = 300 cm",
       "Hitung panjang kayu tambahan yang perlu dipotong: Kekurangan Kayu = 300 cm - 180 cm = 120 cm (1,2 meter)"
     ],
-    analogyTitle: "Analogi Ubin Lantai",
+    analogyTitle: "Simulator Tangga Konversi Satuan Panjang",
     analogyText:
-      "Menghitung luas sebuah ruangan sama seperti menghitung berapa banyak keping ubin lantai yang dibutuhkan untuk menutupi seluruh lantai kamar sampai tidak ada celah tersisa!",
+      "Tangga satuan panjang membantu kita mengubah satuan ukuran dengan mudah. Setiap turun 1 anak tangga dikalikan 10, dan setiap naik 1 anak tangga dibagi 10!",
   },
 };
 
@@ -316,9 +319,6 @@ export const inggrisChaptersData: Record<number, ChapterData> = {
       "'They love running around the playground.' (Mereka suka berlari-lari di sekitar taman bermain.)",
       "'What is your favorite hobby?' (Apa hobi kegemaranmu?)"
     ],
-    analogyTitle: "Analogy: The Daily Schedule Clock",
-    analogyText:
-      "Daily activities are like the gears inside a clock ticking steadily: every hour brings a special routine that keeps our life organized and balanced!",
   },
   2: {
     chapterNumber: 2,
@@ -341,9 +341,6 @@ export const inggrisChaptersData: Record<number, ChapterData> = {
       "'Who is he?' → 'He is a teacher.' (Dia adalah seorang guru.)",
       "'What does he teach?' → 'He teaches mathematics.' (Dia mengajar pelajaran matematika.)"
     ],
-    analogyTitle: "Analogy: Treasure Hunt",
-    analogyText:
-      "Prepositions are like clues on a treasure map: they guide you right to the exact spot where any hidden object can be found!",
   },
   3: {
     chapterNumber: 3,
@@ -368,9 +365,6 @@ export const inggrisChaptersData: Record<number, ChapterData> = {
       "'Excuse me, could you tell me the way to the rice field?' (Permisi, bisakah beritahu jalan menuju sawah?)",
       "'Go straight ahead, then turn right near the bridge.' (Jalan lurus ke depan, lalu belok kanan di dekat jembatan.)"
     ],
-    analogyTitle: "Analogy: Slicing the Clock",
-    analogyText:
-      "Telling time is like cutting a round pie: half of the pie is thirty minutes, and a quarter slice is fifteen minutes!",
   },
 };
 
@@ -487,10 +481,15 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
     });
   };
 
+  const hasAnalogy =
+    selectedSubject === "MTK"
+      ? activeChapter === 1 || activeChapter === 2 || Boolean(currentChapter?.analogyTitle || currentChapter?.analogyText)
+      : selectedSubject !== "B.ING" && Boolean(currentChapter?.analogyTitle || currentChapter?.analogyText);
+
   return (
     <div className="w-full min-h-screen bg-white relative p-0 m-0 text-slate-900 flex flex-col selection:bg-purple-600 selection:text-white">
-      {/* Main Content Area: Padding top mendekati Navbar */}
-      <main className="relative flex-1 w-full pt-[64px] sm:pt-[70px] md:pt-[78px] pb-6 sm:pb-8 md:pb-24">
+      {/* Main Content Area: Padding top mendekati Navbar & Spacing bawah lega dan proporsional sebelum Footer */}
+      <main className="relative flex-1 w-full pt-[64px] sm:pt-[70px] md:pt-[78px] pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         {/* 1. Tab Mata Pelajaran (Mobile: Kiri Atas Overlap Hero Banner | Desktop: Posisi Sisi Kiri Layar Penuh) */}
         <div className="absolute left-0 top-[88px] sm:top-[100px] md:top-[140px] lg:top-[160px] z-30 flex flex-col gap-2 sm:gap-2.5 md:gap-4">
           {(["IPA", "MTK", "B.ING"] as const).map((subject, idx) => {
@@ -624,7 +623,11 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
           </div>
 
           {/* Container Utama Materi (Gradasi Ungu Vertikal Sesuai 4 Card Homepage & Shadow 2xl Melayang Overlap relative z-10) */}
-          <div className="relative z-10 w-full bg-gradient-to-b from-[#3B1778] via-[#2A0D5A] to-[#190C38] text-white rounded-2xl sm:rounded-3xl px-4 pt-7 pb-8 sm:px-7 sm:pt-9 sm:pb-10 md:p-10 shadow-2xl">
+          <div
+            className={`relative z-10 w-full bg-gradient-to-b from-[#3B1778] via-[#2A0D5A] to-[#190C38] text-white rounded-2xl sm:rounded-3xl px-4 pt-7 pb-8 sm:px-7 sm:pt-9 sm:pb-10 md:p-10 shadow-2xl ${
+              hasAnalogy ? "mb-0" : "mb-8 sm:mb-12 md:mb-16"
+            }`}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${selectedSubject}-${activeChapter}`}
@@ -762,32 +765,41 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
                       </div>
                     )}
 
-                    {/* 3. Steps Stepper List (Khusus bab yang memiliki data steps biasa) */}
+                    {/* 3. Steps Stepper List (Khusus bab yang memiliki data steps / Tingkatan Trofik) */}
                     {(!currentChapter?.vocabularyTable || currentChapter.vocabularyTable.length === 0) &&
                       currentChapter?.steps &&
                       currentChapter.steps.length > 0 && (
-                        <div className="flex flex-col space-y-2.5 sm:space-y-3 md:space-y-4 relative">
-                          {currentChapter.steps.map((step, idx) => (
-                            <div key={`step-${idx}`} className="flex items-center gap-2.5 sm:gap-3 md:gap-4 relative group">
-                              {/* Garis vertikal stepper antar lingkaran */}
-                              {idx < (currentChapter.steps?.length ?? 0) - 1 && (
-                                <div
-                                  className="absolute left-[11px] sm:left-[13px] md:left-[17px] top-[22px] sm:top-[26px] md:top-[32px] w-[1.5px] md:w-[2px] h-[calc(100%+10px)] sm:h-[calc(100%+12px)] md:h-[calc(100%+6px)] bg-white/70 z-0 pointer-events-none"
-                                  aria-hidden="true"
-                                />
-                              )}
+                        <div className="flex flex-col space-y-3 sm:space-y-3.5 md:space-y-4 relative">
+                          {currentChapter.steps.map((step, idx) => {
+                            const isLast = idx === (currentChapter.steps?.length ?? 0) - 1;
+                            return (
+                              <div
+                                key={`step-${idx}`}
+                                className="flex items-start gap-2.5 sm:gap-3.5 md:gap-4 relative group"
+                              >
+                                {/* Kolom Nomor & Garis Vertikal (Presisi Center Horisontal & Vertikal) */}
+                                <div className="relative flex flex-col items-center shrink-0 w-8 md:w-9 self-stretch">
+                                  {/* Garis vertikal stepper antar lingkaran */}
+                                  {!isLast && (
+                                    <div
+                                      className="absolute top-4 md:top-[18px] left-1/2 -translate-x-1/2 w-[2px] h-[calc(100%+0.75rem)] sm:h-[calc(100%+0.875rem)] md:h-[calc(100%+1rem)] bg-white/70 z-0 pointer-events-none"
+                                      aria-hidden="true"
+                                    />
+                                  )}
 
-                              {/* Nomor Urut Lingkaran Putih di Kiri */}
-                              <div className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 rounded-full bg-white text-[#2A0D5A] font-poppins font-bold text-[11px] sm:text-xs md:text-base flex items-center justify-center shrink-0 shadow-md">
-                                {idx + 1}
-                              </div>
+                                  {/* Nomor Urut Lingkaran Putih di Kiri */}
+                                  <div className="relative z-10 w-8 h-8 md:w-9 md:h-9 rounded-full bg-white text-[#2A0D5A] font-poppins font-bold text-xs md:text-sm flex items-center justify-center shrink-0 shadow-md">
+                                    {idx + 1}
+                                  </div>
+                                </div>
 
-                              {/* Box Border Rounded Putih di Sebelahnya */}
-                              <div className="flex-1 border border-white/80 rounded-xl md:rounded-full px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 text-white font-poppins text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed bg-white/5 backdrop-blur-[1px] shadow-sm hover:bg-white/10 transition-colors text-left">
-                                <MathRenderer content={step} />
+                                {/* Box Border Rounded Putih di Sebelahnya */}
+                                <div className="flex-1 min-h-[2rem] md:min-h-[2.25rem] border border-white/80 rounded-xl md:rounded-full px-3.5 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 text-white font-poppins text-[11px] sm:text-xs md:text-sm font-medium leading-relaxed bg-white/5 backdrop-blur-[1px] shadow-sm hover:bg-white/10 transition-colors text-left flex items-center">
+                                  <MathRenderer content={step} />
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       )}
 
@@ -866,7 +878,70 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
               </div>
               <AnalogiPizza />
             </motion.div>
-          ) : (currentChapter?.analogyTitle || currentChapter?.analogyText) ? (
+          ) : selectedSubject === "MTK" && activeChapter === 2 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.1, type: "spring", stiffness: 140, damping: 16 }}
+              className="mt-8 sm:mt-10 md:mt-16 w-full"
+            >
+              {/* Header Simulator Diskon Belanja dengan Icon Bohlam 💡 */}
+              <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 md:mb-5">
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+                <h3 className="font-poppins text-sm sm:text-base md:text-2xl font-bold text-slate-900 text-center leading-snug">
+                  {currentChapter?.analogyTitle || "Simulator Diskon Belanja Interaktif"}
+                </h3>
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+              </div>
+              <SimulatorDiskon />
+            </motion.div>
+          ) : selectedSubject === "MTK" && activeChapter === 3 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.1, type: "spring", stiffness: 140, damping: 16 }}
+              className="mt-8 sm:mt-10 md:mt-16 w-full"
+            >
+              {/* Header Simulator Denah & Skala Interaktif dengan Icon Bohlam 💡 */}
+              <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 md:mb-5">
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+                <h3 className="font-poppins text-sm sm:text-base md:text-2xl font-bold text-slate-900 text-center leading-snug">
+                  {currentChapter?.analogyTitle || "Simulator Denah & Skala Interaktif"}
+                </h3>
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+              </div>
+              <SimulatorSkala />
+            </motion.div>
+          ) : selectedSubject === "MTK" && activeChapter === 4 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.1, type: "spring", stiffness: 140, damping: 16 }}
+              className="mt-8 sm:mt-10 md:mt-16 w-full"
+            >
+              {/* Header Simulator Tangga Konversi dengan Icon Bohlam 💡 */}
+              <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 md:mb-5">
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+                <h3 className="font-poppins text-sm sm:text-base md:text-2xl font-bold text-slate-900 text-center leading-snug">
+                  {currentChapter?.analogyTitle || "Simulator Tangga Konversi Satuan Panjang"}
+                </h3>
+                <span className="text-base sm:text-lg md:text-2xl select-none">
+                  💡
+                </span>
+              </div>
+              <SimulatorTangga />
+            </motion.div>
+          ) : selectedSubject !== "B.ING" && (currentChapter?.analogyTitle || currentChapter?.analogyText) ? (
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -900,7 +975,7 @@ export default function DetailMateri({ initialSubject = "IPA" }: DetailMateriPro
         </motion.div>
       </main>
 
-      {/* 6. Global Footer (Identik dengan Home Page) */}
+      {/* 6. Global Footer (Identik dengan Home Page, Spacing Simetris & Lega) */}
       <Footer className="pt-8 sm:pt-10 md:pt-14" />
     </div>
   );
