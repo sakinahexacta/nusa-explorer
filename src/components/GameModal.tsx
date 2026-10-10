@@ -9,12 +9,33 @@ import {
   Minimize2,
   DoorOpen,
   RotateCcw,
+  RotateCw,
 } from "lucide-react";
 
 interface GameModalProps {
   isOpen: boolean;
   onClose: () => void;
   selectedMap?: string | null;
+}
+
+// Menambahkan tipe opsional untuk API penguncian orientasi layar.
+type ScreenOrientationWithLock = {
+  lock?: (orientation: "landscape") => Promise<void>;
+  unlock?: () => void;
+};
+
+function getScreenOrientation(): ScreenOrientationWithLock | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const orientation = (
+    window.screen as unknown as {
+      orientation?: ScreenOrientationWithLock;
+    }
+  ).orientation;
+
+  return orientation ?? null;
 }
 
 export default function GameModal({
@@ -27,27 +48,70 @@ export default function GameModal({
 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [iframeKey, setIframeKey] = useState(0);
+  const [isSmallTouchDevice, setIsSmallTouchDevice] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
 
-  // Mengunci scroll halaman ketika modal terbuka
-  // dan menangani tombol Escape.
+  // Mendeteksi ukuran viewport, dukungan sentuh, dan orientasi.
+  useEffect(() => {
+    const updateViewport = () => {
+      const smallViewport = window.matchMedia(
+        "(max-width: 1024px)"
+      ).matches;
+
+      const hasTouchscreen = navigator.maxTouchPoints > 0;
+
+      setIsSmallTouchDevice(smallViewport || hasTouchscreen);
+      setIsPortrait(
+        window.matchMedia("(orientation: portrait)").matches
+      );
+    };
+
+    updateViewport();
+
+    window.addEventListener("resize", updateViewport);
+    window.addEventListener("orientationchange", updateViewport);
+
+    return () => {
+      window.removeEventListener("resize", updateViewport);
+      window.removeEventListener("orientationchange", updateViewport);
+    };
+  }, []);
+
+  // Mengunci scroll halaman, menangani Escape, dan mengamati fullscreen.
   useEffect(() => {
     if (!isOpen) return;
 
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    const unlockOrientation = () => {
+      try {
+        getScreenOrientation()?.unlock?.();
+      } catch (error) {
+        console.warn("Gagal melepas orientasi layar:", error);
+      }
+    };
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        if (document.fullscreenElement) {
-          document.exitFullscreen().catch(() => {});
-        } else {
-          onClose();
-        }
+      if (event.key !== "Escape") return;
+
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      } else if (isFullscreen) {
+        setIsFullscreen(false);
+        unlockOrientation();
+      } else {
+        onClose();
       }
     };
 
     const handleFullscreenChange = () => {
-      setIsFullscreen(Boolean(document.fullscreenElement));
+      const active = Boolean(document.fullscreenElement);
+      setIsFullscreen(active);
+
+      if (!active) {
+        unlockOrientation();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -62,27 +126,84 @@ export default function GameModal({
         handleFullscreenChange
       );
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, isFullscreen, onClose]);
 
-  // Mengaktifkan dan menonaktifkan fullscreen.
+  // Mengaktifkan fullscreen dan mencoba mengunci landscape.
   const toggleFullscreen = async () => {
-    try {
-      if (!document.fullscreenElement) {
-        if (containerRef.current) {
-          await containerRef.current.requestFullscreen();
+    const container = containerRef.current;
+
+    if (!container) return;
+
+    // Jika sedang fullscreen, coba keluar.
+    if (isFullscreen) {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
         }
-      } else {
-        await document.exitFullscreen();
+      } catch (error) {
+        console.warn("Gagal keluar dari fullscreen:", error);
+      } finally {
+        setIsFullscreen(false);
+
+        try {
+          getScreenOrientation()?.unlock?.();
+        } catch (error) {
+          console.warn("Gagal melepas orientasi layar:", error);
+        }
+      }
+
+      return;
+    }
+
+    // Fallback CSS: memenuhi viewport jika fullscreen native gagal.
+    setIsFullscreen(true);
+
+    let nativeFullscreenSucceeded = false;
+
+    try {
+      if (typeof container.requestFullscreen === "function") {
+        await container.requestFullscreen();
+        nativeFullscreenSucceeded = true;
       }
     } catch (error) {
-      console.error("Fullscreen toggle error:", error);
+      console.warn(
+        "Fullscreen native tidak tersedia. Menggunakan fallback CSS.",
+        error
+      );
+    }
+
+    const shouldRequestLandscape =
+      window.matchMedia("(max-width: 1024px)").matches ||
+      navigator.maxTouchPoints > 0;
+
+    const orientation = getScreenOrientation();
+
+    // API lock hanya dipanggil jika fullscreen native berhasil
+    // dan browser mendukung penguncian orientasi.
+    if (
+      shouldRequestLandscape &&
+      nativeFullscreenSucceeded &&
+      typeof orientation?.lock === "function"
+    ) {
+      try {
+        await orientation.lock("landscape");
+      } catch (error) {
+        console.warn(
+          "Browser tidak mengizinkan penguncian landscape. " +
+            "Putar perangkat secara manual jika diperlukan.",
+          error
+        );
+      }
     }
   };
 
-  // Memuat ulang game melalui iframe.
+  // Restart membuat instance game dalam iframe dimuat ulang.
   const handleRestartGame = () => {
     setIframeKey((previous) => previous + 1);
   };
+
+  const showRotatePrompt =
+    isFullscreen && isSmallTouchDevice && isPortrait;
 
   return (
     <AnimatePresence>
@@ -112,13 +233,13 @@ export default function GameModal({
             }}
             className={`relative w-full max-w-6xl bg-[#190C38] rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-[#7c3aed] shadow-[0_12px_45px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col z-10 ${
               isFullscreen
-                ? "h-screen max-w-none rounded-none border-0"
+                ? "fixed inset-0 z-50 h-[100dvh] w-screen max-w-none rounded-none border-0"
                 : ""
             }`}
           >
             {/* Header */}
-            <header className="w-full bg-[#5b21b6] border-b-2 sm:border-b-4 border-black/40 px-3 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between select-none shadow-md gap-2">
-              {/* Judul */}
+            <header className="w-full shrink-0 bg-[#5b21b6] border-b-2 sm:border-b-4 border-black/40 px-3 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between select-none shadow-md gap-2">
+              {/* Logo dan judul */}
               <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-purple-900/70 border border-purple-400/50 flex items-center justify-center flex-shrink-0 shadow-inner">
                   <Gamepad2 className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 animate-pulse" />
@@ -146,7 +267,6 @@ export default function GameModal({
 
               {/* Tombol kontrol */}
               <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
-                {/* Restart */}
                 <button
                   type="button"
                   onClick={handleRestartGame}
@@ -157,7 +277,6 @@ export default function GameModal({
                   <span className="hidden md:inline">Restart</span>
                 </button>
 
-                {/* Fullscreen */}
                 <button
                   type="button"
                   onClick={toggleFullscreen}
@@ -183,7 +302,6 @@ export default function GameModal({
                   )}
                 </button>
 
-                {/* Kembali */}
                 <button
                   type="button"
                   onClick={onClose}
@@ -196,8 +314,12 @@ export default function GameModal({
               </div>
             </header>
 
-            {/* Area Game Godot */}
-            <div className="relative w-full aspect-[16/9] bg-black overflow-hidden flex items-center justify-center flex-1">
+            {/* Area game */}
+            <div
+              className={`relative w-full bg-black overflow-hidden flex items-center justify-center flex-1 min-h-0 ${
+                isFullscreen ? "" : "aspect-[16/9]"
+              }`}
+            >
               <iframe
                 key={iframeKey}
                 ref={iframeRef}
@@ -207,6 +329,23 @@ export default function GameModal({
                 allowFullScreen
                 className="absolute inset-0 w-full h-full border-0 block select-none"
               />
+
+              {/* Petunjuk rotasi manual jika landscape ditolak browser */}
+              {showRotatePrompt && (
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-[#0d061f]/95 p-6 text-center text-white">
+                  <RotateCw className="h-12 w-12 text-yellow-300" />
+
+                  <h3 className="font-pixel text-sm sm:text-base text-yellow-300 leading-relaxed">
+                    PUTAR PERANGKAT
+                  </h3>
+
+                  <p className="max-w-sm text-sm sm:text-base font-poppins leading-relaxed text-purple-100">
+                    Gunakan posisi landscape (horizontal) untuk memainkan
+                    Nusa Explorer. Putar HP atau tablet jika layar belum
+                    berotasi otomatis.
+                  </p>
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
