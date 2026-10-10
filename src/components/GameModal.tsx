@@ -18,7 +18,6 @@ interface GameModalProps {
   selectedMap?: string | null;
 }
 
-// Menambahkan tipe opsional untuk API penguncian orientasi layar.
 type ScreenOrientationWithLock = {
   lock?: (orientation: "landscape") => Promise<void>;
   unlock?: () => void;
@@ -29,13 +28,19 @@ function getScreenOrientation(): ScreenOrientationWithLock | null {
     return null;
   }
 
-  const orientation = (
-    window.screen as unknown as {
-      orientation?: ScreenOrientationWithLock;
-    }
-  ).orientation;
+  const screenWithOrientation = window.screen as unknown as {
+    orientation?: ScreenOrientationWithLock;
+  };
 
-  return orientation ?? null;
+  return screenWithOrientation.orientation ?? null;
+}
+
+function unlockOrientation() {
+  try {
+    getScreenOrientation()?.unlock?.();
+  } catch (error) {
+    console.warn("Gagal melepas orientasi layar:", error);
+  }
 }
 
 export default function GameModal({
@@ -43,24 +48,26 @@ export default function GameModal({
   onClose,
   selectedMap,
 }: GameModalProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const gameAreaRef = useRef<HTMLDivElement>(null);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [iframeKey, setIframeKey] = useState(0);
   const [isSmallTouchDevice, setIsSmallTouchDevice] = useState(false);
   const [isPortrait, setIsPortrait] = useState(false);
 
-  // Mendeteksi ukuran viewport, dukungan sentuh, dan orientasi.
+  // Mendeteksi ukuran layar, touchscreen, dan orientasi.
   useEffect(() => {
     const updateViewport = () => {
-      const smallViewport = window.matchMedia(
+      const isSmallScreen = window.matchMedia(
         "(max-width: 1024px)"
       ).matches;
 
-      const hasTouchscreen = navigator.maxTouchPoints > 0;
+      const supportsTouch =
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia("(pointer: coarse)").matches;
 
-      setIsSmallTouchDevice(smallViewport || hasTouchscreen);
+      setIsSmallTouchDevice(isSmallScreen || supportsTouch);
+
       setIsPortrait(
         window.matchMedia("(orientation: portrait)").matches
       );
@@ -70,34 +77,29 @@ export default function GameModal({
 
     window.addEventListener("resize", updateViewport);
     window.addEventListener("orientationchange", updateViewport);
+    window.visualViewport?.addEventListener("resize", updateViewport);
 
     return () => {
       window.removeEventListener("resize", updateViewport);
       window.removeEventListener("orientationchange", updateViewport);
+      window.visualViewport?.removeEventListener("resize", updateViewport);
     };
   }, []);
 
-  // Mengunci scroll halaman, menangani Escape, dan mengamati fullscreen.
+  // Mengelola scroll, Escape, dan status fullscreen browser.
   useEffect(() => {
     if (!isOpen) return;
 
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const unlockOrientation = () => {
-      try {
-        getScreenOrientation()?.unlock?.();
-      } catch (error) {
-        console.warn("Gagal melepas orientasi layar:", error);
-      }
-    };
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
 
-      if (document.fullscreenElement) {
+      if (document.fullscreenElement === gameAreaRef.current) {
         document.exitFullscreen().catch(() => {});
       } else if (isFullscreen) {
+        // Keluar dari fullscreen CSS fallback.
         setIsFullscreen(false);
         unlockOrientation();
       } else {
@@ -106,10 +108,12 @@ export default function GameModal({
     };
 
     const handleFullscreenChange = () => {
-      const active = Boolean(document.fullscreenElement);
-      setIsFullscreen(active);
+      const gameIsFullscreen =
+        document.fullscreenElement === gameAreaRef.current;
 
-      if (!active) {
+      setIsFullscreen(gameIsFullscreen);
+
+      if (!gameIsFullscreen) {
         unlockOrientation();
       }
     };
@@ -128,41 +132,37 @@ export default function GameModal({
     };
   }, [isOpen, isFullscreen, onClose]);
 
-  // Mengaktifkan fullscreen dan mencoba mengunci landscape.
+  // Memasuki fullscreen dengan area GAME, bukan seluruh modal.
   const toggleFullscreen = async () => {
-    const container = containerRef.current;
+    const gameArea = gameAreaRef.current;
 
-    if (!container) return;
+    if (!gameArea) return;
 
-    // Jika sedang fullscreen, coba keluar.
+    // Keluar dari fullscreen.
     if (isFullscreen) {
       try {
-        if (document.fullscreenElement) {
+        if (document.fullscreenElement === gameArea) {
           await document.exitFullscreen();
         }
       } catch (error) {
         console.warn("Gagal keluar dari fullscreen:", error);
       } finally {
         setIsFullscreen(false);
-
-        try {
-          getScreenOrientation()?.unlock?.();
-        } catch (error) {
-          console.warn("Gagal melepas orientasi layar:", error);
-        }
+        unlockOrientation();
       }
 
       return;
     }
 
-    // Fallback CSS: memenuhi viewport jika fullscreen native gagal.
-    setIsFullscreen(true);
-
     let nativeFullscreenSucceeded = false;
 
     try {
-      if (typeof container.requestFullscreen === "function") {
-        await container.requestFullscreen();
+      if (typeof gameArea.requestFullscreen === "function") {
+        // Meminta browser menyembunyikan navigation UI.
+        await gameArea.requestFullscreen({
+          navigationUI: "hide",
+        });
+
         nativeFullscreenSucceeded = true;
       }
     } catch (error) {
@@ -172,24 +172,27 @@ export default function GameModal({
       );
     }
 
+    // Bila native ditolak, tetap penuhi viewport yang tersedia.
+    setIsFullscreen(true);
+
     const shouldRequestLandscape =
       window.matchMedia("(max-width: 1024px)").matches ||
-      navigator.maxTouchPoints > 0;
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches;
 
     const orientation = getScreenOrientation();
 
-    // API lock hanya dipanggil jika fullscreen native berhasil
-    // dan browser mendukung penguncian orientasi.
+    // Lock landscape hanya jika browser berhasil masuk fullscreen native.
     if (
-      shouldRequestLandscape &&
       nativeFullscreenSucceeded &&
+      shouldRequestLandscape &&
       typeof orientation?.lock === "function"
     ) {
       try {
         await orientation.lock("landscape");
       } catch (error) {
         console.warn(
-          "Browser tidak mengizinkan penguncian landscape. " +
+          "Browser menolak penguncian landscape. " +
             "Putar perangkat secara manual jika diperlukan.",
           error
         );
@@ -197,7 +200,22 @@ export default function GameModal({
     }
   };
 
-  // Restart membuat instance game dalam iframe dimuat ulang.
+  // Menutup modal dan melepaskan fullscreen jika sedang aktif.
+  const handleClose = async () => {
+    try {
+      if (document.fullscreenElement === gameAreaRef.current) {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      console.warn("Gagal keluar dari fullscreen:", error);
+    }
+
+    unlockOrientation();
+    setIsFullscreen(false);
+    onClose();
+  };
+
+  // Memuat ulang instance game.
   const handleRestartGame = () => {
     setIframeKey((previous) => previous + 1);
   };
@@ -208,121 +226,141 @@ export default function GameModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto">
+        <div
+          className={`fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden ${
+            isFullscreen ? "p-0" : "p-2 sm:p-4 md:p-6"
+          }`}
+        >
           {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md cursor-pointer"
-            aria-hidden="true"
-          />
+          {!isFullscreen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => void handleClose()}
+              className="fixed inset-0 bg-black/80 backdrop-blur-md cursor-pointer"
+              aria-hidden="true"
+            />
+          )}
 
           {/* Modal Container */}
           <motion.div
-            ref={containerRef}
-            initial={{ opacity: 0, scale: 0.92, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 16 }}
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            }}
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{
               type: "spring",
               stiffness: 350,
               damping: 25,
             }}
-            className={`relative w-full max-w-6xl bg-[#190C38] rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-[#7c3aed] shadow-[0_12px_45px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col z-10 ${
+            style={
               isFullscreen
-                ? "fixed inset-0 z-50 h-[100dvh] w-screen max-w-none rounded-none border-0"
-                : ""
+                ? {
+                    position: "fixed",
+                    inset: 0,
+                    width: "100vw",
+                    height: "100dvh",
+                    maxWidth: "none",
+                    borderRadius: 0,
+                    borderWidth: 0,
+                    margin: 0,
+                    zIndex: 10000,
+                  }
+                : undefined
+            }
+            className={`relative w-full max-w-6xl bg-[#190C38] rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-[#7c3aed] shadow-[0_12px_45px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col z-10 ${
+              isFullscreen ? "rounded-none border-0" : ""
             }`}
           >
-            {/* Header */}
-            <header className="w-full shrink-0 bg-[#5b21b6] border-b-2 sm:border-b-4 border-black/40 px-3 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between select-none shadow-md gap-2">
-              {/* Logo dan judul */}
-              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-purple-900/70 border border-purple-400/50 flex items-center justify-center flex-shrink-0 shadow-inner">
-                  <Gamepad2 className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 animate-pulse" />
-                </div>
-
-                <div className="flex flex-col min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h2 className="font-pixel text-[11px] sm:text-xs md:text-sm text-yellow-300 drop-shadow-[0_2px_0_rgba(0,0,0,0.9)] truncate tracking-wider">
-                      NUSA EXPLORER
-                    </h2>
-
-                    {selectedMap && (
-                      <span className="hidden sm:inline-flex items-center gap-1 bg-[#7c3aed] text-white px-2.5 py-0.5 rounded-full text-[10px] md:text-xs font-poppins font-bold border border-white/30 shadow-sm">
-                        <span>📍</span>
-                        <span className="truncate">{selectedMap}</span>
-                      </span>
-                    )}
+            {/* Header disembunyikan saat fullscreen agar game memenuhi layar. */}
+            {!isFullscreen && (
+              <header className="w-full shrink-0 bg-[#5b21b6] border-b-2 sm:border-b-4 border-black/40 px-3 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between select-none shadow-md gap-2">
+                {/* Judul */}
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-purple-900/70 border border-purple-400/50 flex items-center justify-center flex-shrink-0 shadow-inner">
+                    <Gamepad2 className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-300 animate-pulse" />
                   </div>
 
-                  <span className="text-[10px] sm:text-xs text-purple-200 font-poppins font-medium hidden xs:block truncate">
-                    Godot Engine HTML5
-                  </span>
+                  <div className="flex flex-col min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h2 className="font-pixel text-[11px] sm:text-xs md:text-sm text-yellow-300 drop-shadow-[0_2px_0_rgba(0,0,0,0.9)] truncate tracking-wider">
+                        NUSA EXPLORER
+                      </h2>
+
+                      {selectedMap && (
+                        <span className="hidden sm:inline-flex items-center gap-1 bg-[#7c3aed] text-white px-2.5 py-0.5 rounded-full text-[10px] md:text-xs font-poppins font-bold border border-white/30 shadow-sm">
+                          <span>📍</span>
+                          <span className="truncate">{selectedMap}</span>
+                        </span>
+                      )}
+                    </div>
+
+                    <span className="text-[10px] sm:text-xs text-purple-200 font-poppins font-medium hidden xs:block truncate">
+                      Godot Engine HTML5
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Tombol kontrol */}
-              <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
-                <button
-                  type="button"
-                  onClick={handleRestartGame}
-                  title="Muat Ulang Game"
-                  className="bg-purple-800/80 hover:bg-purple-700 active:scale-95 text-white p-2 sm:px-3 sm:py-1.5 rounded-xl border border-black/30 font-poppins text-xs font-semibold flex items-center gap-1.5 transition-all shadow cursor-pointer select-none"
-                >
-                  <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-200" />
-                  <span className="hidden md:inline">Restart</span>
-                </button>
+                {/* Tombol kontrol normal */}
+                <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={handleRestartGame}
+                    title="Muat Ulang Game"
+                    className="bg-purple-800/80 hover:bg-purple-700 active:scale-95 text-white p-2 sm:px-3 sm:py-1.5 rounded-xl border border-black/30 font-poppins text-xs font-semibold flex items-center gap-1.5 transition-all shadow cursor-pointer select-none"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-200" />
+                    <span className="hidden md:inline">Restart</span>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={toggleFullscreen}
-                  title={
-                    isFullscreen
-                      ? "Keluar Layar Penuh"
-                      : "Layar Penuh"
-                  }
-                  className="bg-[#7c3aed] hover:bg-[#6d28d9] active:scale-95 text-white p-2 sm:px-3.5 sm:py-1.5 rounded-xl border border-black/40 font-poppins text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_2px_0_rgba(0,0,0,0.7)] cursor-pointer select-none"
-                >
-                  {isFullscreen ? (
-                    <>
-                      <Minimize2 className="w-4 h-4 text-white" />
-                      <span className="hidden sm:inline">Normal</span>
-                    </>
-                  ) : (
-                    <>
-                      <Maximize2 className="w-4 h-4 text-white" />
-                      <span className="hidden sm:inline">
-                        Layar Penuh
-                      </span>
-                    </>
-                  )}
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => void toggleFullscreen()}
+                    title="Layar Penuh"
+                    className="bg-[#7c3aed] hover:bg-[#6d28d9] active:scale-95 text-white p-2 sm:px-3.5 sm:py-1.5 rounded-xl border border-black/40 font-poppins text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_2px_0_rgba(0,0,0,0.7)] cursor-pointer select-none"
+                  >
+                    <Maximize2 className="w-4 h-4 text-white" />
+                    <span className="hidden sm:inline">Layar Penuh</span>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={onClose}
-                  title="Tutup Game"
-                  className="bg-[#dc2626] hover:bg-[#b91c1c] active:scale-95 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-black/50 font-poppins text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all shadow-[0_3px_0_rgba(0,0,0,0.8)] cursor-pointer select-none"
-                >
-                  <DoorOpen className="w-4 h-4 text-white" />
-                  <span>Kembali</span>
-                </button>
-              </div>
-            </header>
+                  <button
+                    type="button"
+                    onClick={() => void handleClose()}
+                    title="Tutup Game"
+                    className="bg-[#dc2626] hover:bg-[#b91c1c] active:scale-95 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-black/50 font-poppins text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all shadow-[0_3px_0_rgba(0,0,0,0.8)] cursor-pointer select-none"
+                  >
+                    <DoorOpen className="w-4 h-4 text-white" />
+                    <span>Kembali</span>
+                  </button>
+                </div>
+              </header>
+            )}
 
-            {/* Area game */}
+            {/* Area game: inilah elemen yang dimasukkan ke fullscreen native. */}
             <div
-              className={`relative w-full bg-black overflow-hidden flex items-center justify-center flex-1 min-h-0 ${
-                isFullscreen ? "" : "aspect-[16/9]"
+              ref={gameAreaRef}
+              style={
+                isFullscreen
+                  ? {
+                      width: "100vw",
+                      height: "100dvh",
+                      minHeight: "100dvh",
+                      flex: "none",
+                      aspectRatio: "auto",
+                    }
+                  : undefined
+              }
+              className={`relative w-full bg-black overflow-hidden flex items-center justify-center min-h-0 ${
+                isFullscreen ? "flex-none" : "aspect-[16/9] flex-1"
               }`}
             >
               <iframe
                 key={iframeKey}
-                ref={iframeRef}
                 src="/nusa-explorer/index.html"
                 title="Nusa Explorer Godot Game"
                 allow="autoplay; fullscreen"
@@ -330,7 +368,42 @@ export default function GameModal({
                 className="absolute inset-0 w-full h-full border-0 block select-none"
               />
 
-              {/* Petunjuk rotasi manual jika landscape ditolak browser */}
+              {/* Kontrol mengambang saat game fullscreen. */}
+              {isFullscreen && (
+                <div className="absolute top-3 right-3 z-30 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleRestartGame}
+                    title="Restart Game"
+                    aria-label="Restart game"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/30 bg-black/65 text-white shadow-lg backdrop-blur-sm active:scale-95"
+                  >
+                    <RotateCcw className="h-5 w-5" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => void toggleFullscreen()}
+                    title="Keluar dari Layar Penuh"
+                    aria-label="Keluar dari layar penuh"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/30 bg-black/65 text-white shadow-lg backdrop-blur-sm active:scale-95"
+                  >
+                    <Minimize2 className="h-5 w-5" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => void handleClose()}
+                    title="Tutup Game"
+                    aria-label="Tutup game"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/30 bg-red-700/90 text-white shadow-lg backdrop-blur-sm active:scale-95"
+                  >
+                    <DoorOpen className="h-5 w-5" />
+                  </button>
+                </div>
+              )}
+
+              {/* Panduan orientasi jika browser tidak bisa mengunci landscape. */}
               {showRotatePrompt && (
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-[#0d061f]/95 p-6 text-center text-white">
                   <RotateCw className="h-12 w-12 text-yellow-300" />
