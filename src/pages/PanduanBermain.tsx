@@ -39,11 +39,11 @@ const steps: StepCard[] = [
 ];
 
 const maps = [
-  { badge: "Sawah", src: "/images/map 1.png" },
-  { badge: "Taman", src: "/images/map 2.png" },
-  { badge: "Desa", src: "/images/map 3.png" },
-  { badge: "Sekolah", src: "/images/map 4.png" },
-  { badge: "Sawah", src: "/images/map 5.png" },
+  { badge: "Peternakan", src: "/images/map 1.png" },
+  { badge: "Sekolah", src: "/images/map 2.png" },
+  { badge: "Sawah", src: "/images/map 3.png" },
+  { badge: "Taman", src: "/images/map 4.png" },
+  { badge: "Desa", src: "/images/map 5.png" },
   { badge: "Pasar", src: "/images/map 6.png" },
 ];
 

@@ -103,7 +103,7 @@ export default function MateriPage() {
         </div>
 
         {/* Konten Hero: Title & Subtitle melayang di atas Wave - absolute inset-0 z-20 pointer-events-none */}
-        <div className="absolute inset-0 z-20 flex flex-col items-center pt-16 sm:pt-20 md:pt-36 pb-8 sm:pb-10 md:pb-0 px-4 sm:px-6 pointer-events-none">
+        <div className="absolute inset-0 z-20 flex flex-col items-center pt-16 sm:pt-20 md:pt-28 lg:pt-30 pb-8 sm:pb-10 md:pb-0 px-4 sm:px-6 pointer-events-none">
           {/* Konten Hero: Title & Subtitle - Rata Tengah (text-center) dengan jarak lega pas di atas wave putih */}
           <div className="max-w-6xl w-full mx-auto flex flex-col items-center pointer-events-auto mt-0.5 sm:mt-1 md:mt-0">
             {/* Title: MATERI (Kapital, pixel text, pop bounce) */}
@@ -111,7 +111,7 @@ export default function MateriPage() {
               initial={{ opacity: 0, scale: 0.8, y: -15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 280, damping: 16, delay: 0.08 }}
-              className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-1 sm:mt-2 md:mt-6 pt-0 sm:pt-1 md:pt-8 mb-1 sm:mb-1.5 md:mb-6 uppercase"
+              className="font-pixel text-xl sm:text-2xl md:text-4xl text-white font-black tracking-wider md:tracking-widest text-center pixel-text-shadow leading-tight select-none mt-1 sm:mt-2 md:mt-2 lg:mt-3 pt-0 sm:pt-1 md:pt-3 lg:pt-4 mb-1 sm:mb-1.5 md:mb-2.5 lg:mb-3 uppercase"
             >
               MATERI
             </motion.h1>
@@ -121,7 +121,7 @@ export default function MateriPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 180, damping: 18 }}
-              className="text-white font-bold text-[11px] sm:text-sm md:text-base text-center max-w-[260px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-0.5 sm:mt-1 md:mt-4 mb-0 sm:mb-1 md:mb-6 px-4 sm:px-0 select-none"
+              className="text-white font-bold text-[11px] sm:text-sm md:text-base text-center max-w-[260px] sm:max-w-xs md:max-w-md mx-auto leading-normal sm:leading-relaxed mt-0.5 sm:mt-1 md:mt-2 lg:mt-2.5 mb-0 sm:mb-1 md:mb-5 lg:mb-6 px-4 sm:px-0 select-none"
             >
               Ayo mulai belajar IPAS, Matematika, dan Bahasa
               <br className="hidden sm:inline" /> Inggris bersama!

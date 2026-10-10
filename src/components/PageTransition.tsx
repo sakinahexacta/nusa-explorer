@@ -11,10 +11,14 @@ export default function PageTransition({
 }) {
   const pathname = usePathname();
 
+  // Kelompokkan semua sub-halaman detail materi agar pergantian mata pelajaran tidak memicu fade-out global
+  const isMateriDetail = pathname?.startsWith("/materi/") && pathname !== "/materi";
+  const transitionKey = isMateriDetail ? "/materi-detail" : pathname;
+
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
-        key={pathname}
+        key={transitionKey}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
