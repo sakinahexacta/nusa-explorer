@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Play, ClipboardList } from "lucide-react";
 import { motion } from "framer-motion";
+import { useGameModal } from "@/context/GameModalContext";
 
 export default function Hero() {
+  const { openGame } = useGameModal();
   // Support smooth scroll to #hero-game or #play-game when arriving with hash
   useEffect(() => {
     const handleHash = () => {
@@ -111,13 +113,14 @@ export default function Hero() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
-            <Link
-              href="/panduan"
-              className="flex items-center gap-2 bg-[#073294] hover:bg-[#052674] text-white font-black text-xs sm:text-base px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-xl border border-black/40 shadow-[0_4px_0_rgba(0,0,0,1)] sm:shadow-[0_6px_0_rgba(0,0,0,1)] transition-colors cursor-pointer whitespace-nowrap touch-manipulation block"
+            <button
+              type="button"
+              onClick={() => openGame()}
+              className="flex items-center gap-2 bg-[#073294] hover:bg-[#052674] text-white font-black text-xs sm:text-base px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-xl border border-black/40 shadow-[0_4px_0_rgba(0,0,0,1)] sm:shadow-[0_6px_0_rgba(0,0,0,1)] transition-colors cursor-pointer whitespace-nowrap touch-manipulation block select-none"
             >
               <Play className="w-3.5 h-3.5 sm:w-5 sm:h-5 fill-white text-white" />
               <span>Mulai Game</span>
-            </Link>
+            </button>
           </motion.div>
 
           {/* Secondary White Button - Statis diam di tempat, hanya hover & tap */}

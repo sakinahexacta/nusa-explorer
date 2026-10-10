@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Play } from "lucide-react";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import { useGameModal } from "@/context/GameModalContext";
 
 interface StepCard {
   number: number;
@@ -48,6 +49,7 @@ const maps = [
 ];
 
 export default function PanduanBermain() {
+  const { openGame } = useGameModal();
   // Support smooth scrolling to target element when navigating with hash
   useEffect(() => {
     const handleHash = () => {
@@ -556,22 +558,41 @@ export default function PanduanBermain() {
                   stiffness: 140,
                   damping: 16,
                 }}
-                whileHover={{ y: -6 }}
-                className="flex flex-col items-center group cursor-default"
+                whileHover={{ y: -6, scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => openGame(map.badge)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openGame(map.badge);
+                  }
+                }}
+                title={`Mainkan Game di Lokasi ${map.badge}`}
+                className="flex flex-col items-center group cursor-pointer focus:outline-none select-none"
               >
-                {/* White Badge Pill */}
-                <div className="w-full bg-white text-[#190C38] font-black text-xs sm:text-sm md:text-base py-1 sm:py-2 md:py-2.5 px-2 sm:px-4 md:px-6 rounded-lg sm:rounded-xl md:rounded-2xl text-center shadow-md mb-2 sm:mb-3 md:mb-3.5 tracking-wide select-none group-hover:bg-purple-100 transition-colors">
-                  {map.badge}
+                {/* White Badge Pill with Play Icon */}
+                <div className="w-full bg-white text-[#190C38] font-black text-xs sm:text-sm md:text-base py-1 sm:py-2 md:py-2.5 px-2 sm:px-4 md:px-6 rounded-lg sm:rounded-xl md:rounded-2xl text-center shadow-md mb-2 sm:mb-3 md:mb-3.5 tracking-wide select-none group-hover:bg-purple-100 group-hover:text-[#5b21b6] transition-colors flex items-center justify-center gap-1.5 border border-transparent group-hover:border-[#7c3aed]/40">
+                  <span>{map.badge}</span>
+                  <Play className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#5b21b6] text-[#5b21b6] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 
                 {/* Map Frame */}
-                <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden border-2 border-white/90 shadow-lg md:shadow-xl hover:scale-105 transition-transform duration-300">
+                <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden border-2 border-white/90 group-hover:border-yellow-300 shadow-lg md:shadow-xl transition-all duration-300 relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={map.src}
                     alt={`Map ${map.badge}`}
-                    className="w-full h-auto object-contain block pixel-art-crisp select-none"
+                    className="w-full h-auto object-contain block pixel-art-crisp select-none group-hover:scale-105 transition-transform duration-300"
                   />
+                  {/* Hover Overlay "Mainkan" */}
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="bg-[#7c3aed] text-white font-poppins font-bold text-xs sm:text-sm px-3 py-1.5 rounded-full border border-white/40 shadow-md flex items-center gap-1.5">
+                      <Play className="w-3 h-3 fill-white text-white" />
+                      <span>Mainkan</span>
+                    </span>
+                  </div>
                 </div>
               </motion.div>
             ))}

@@ -2,11 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Play } from "lucide-react";
 import { motion } from "framer-motion";
+import { useGameModal } from "@/context/GameModalContext";
 
 export default function CtaBanner() {
+  const { openGame } = useGameModal();
   return (
     <section className="relative z-20 py-24 md:py-28 overflow-hidden">
       {/* Background Pixel Map with Dark Overlay */}
@@ -58,13 +59,14 @@ export default function CtaBanner() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Link
-            href="/panduan"
+          <button
+            type="button"
+            onClick={() => openGame()}
             className="flex items-center gap-3 bg-[#073294] hover:bg-[#052674] text-white font-black text-base sm:text-lg md:text-xl px-9 py-4 rounded-xl border border-black/40 shadow-[0_6px_0_rgba(0,0,0,1)] transition-colors cursor-pointer select-none inline-flex"
           >
             <Play className="w-5 h-5 fill-white text-white" />
             <span>Main Sekarang!</span>
-          </Link>
+          </button>
         </motion.div>
       </div>
     </section>

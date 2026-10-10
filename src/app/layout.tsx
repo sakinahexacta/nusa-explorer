@@ -31,6 +31,7 @@ const poppins = Poppins({
 
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
+import { GameModalProvider } from "@/context/GameModalContext";
 
 export const metadata: Metadata = {
   title: "Nusa Explorer - Belajar Menyenangkan Dengan Bermain!",
@@ -55,9 +56,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-white text-slate-900 antialiased font-sans flex flex-col selection:bg-purple-500 selection:text-white">
-        {/* Navbar statis di luar container transisi halaman */}
-        <Navbar />
-        <PageTransition>{children}</PageTransition>
+        <GameModalProvider>
+          {/* Navbar statis di luar container transisi halaman */}
+          <Navbar />
+          <PageTransition>{children}</PageTransition>
+        </GameModalProvider>
       </body>
     </html>
   );
